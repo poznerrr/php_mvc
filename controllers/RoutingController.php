@@ -9,7 +9,7 @@ class RoutingController
     {
     }
 
-    public function route($url)
+    public function route(string $url): void
     {
         switch ($url) {
             case '/':

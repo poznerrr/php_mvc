@@ -4,62 +4,62 @@ namespace models;
 
 class Post
 {
-    private $id;
+    private int $id;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId($id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    public function getTitle()
+    private string $title;
+
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    private $title;
-
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    private $date;
+    private string $date;
 
-    public function getDate()
+    public function getDate(): string
     {
         return $this->date;
     }
 
-    public function setDate($date): void
+    public function setDate(string $date): void
     {
         $this->date = $date;
     }
 
-    private $text;
+    private string $text;
 
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
-    public function setText($text): void
+    public function setText(string $text): void
     {
         $this->text = $text;
     }
 
-    private $author;
+    private string $author;
 
-    public function getAuthor()
+    public function getAuthor(): string
     {
         return $this->author;
     }
 
-    public function setAuthor($author): void
+    public function setAuthor(string $author): void
     {
         $this->author = $author;
     }

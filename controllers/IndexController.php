@@ -7,8 +7,8 @@ use views\IndexView;
 
 class IndexController
 {
-    public $posts;
-    public $postService;
+    public array $posts;
+    public PostService $postService;
 
     public function __construct()
     {
@@ -17,14 +17,13 @@ class IndexController
         $this->postService->createPost("Тестовая новость 2", "Lorem ipsum 222", "Администратор");
     }
 
-    public function render()
+    public function render(): void
     {
         $this->posts = $this->postService->getAllPosts();
         new IndexView($this->posts);
-
     }
 
-    public function delete()
+    public function delete(): void
     {
         if (isset($_POST['delete']) && isset($_POST['id'])) {
             $this->posts = $this->postService->deletePost($_POST['id']);

@@ -6,15 +6,15 @@ class PostService
 {
     use TSingletone;
 
-    public static $counter = 0;
+    public static int $counter = 0;
 
-    private static $posts;
+    private static array $posts;
 
     protected function __construct()
     {
     }
 
-    public function createPost($title, $text, $author)
+    public function createPost(string $title, string $text, string $author) : void
     {
         $post = new Post;
         $post->setId(PostService::$counter++);
@@ -26,12 +26,12 @@ class PostService
         static::$posts[] = $post;
     }
 
-    public function getAllPosts()
+    public function getAllPosts() : array
     {
         return static::$posts;
     }
 
-    public function deletePost($id)
+    public function deletePost(int $id) : array
     {
         foreach (static::$posts as $post) {
             if ($post->getId() == $id) {
@@ -41,7 +41,7 @@ class PostService
         return $this->getAllPosts();
     }
 
-    public function addPost(Post $post)
+    public function addPost(Post $post) : void
     {
         static::$posts[] = $post;
     }

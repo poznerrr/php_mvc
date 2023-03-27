@@ -4,8 +4,8 @@ namespace views;
 
 class IndexView
 {
-    private $posts;
-    public function __construct($posts)
+    private array $posts;
+    public function __construct(array $posts)
     {
         $this->posts = $posts;
         require dirname(__DIR__) . '/layouts/index.phtml';

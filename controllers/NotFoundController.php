@@ -10,7 +10,7 @@ class NotFoundController
     {
     }
 
-    public function render()
+    public function render(): void
     {
         new NotFoundView;
     }
