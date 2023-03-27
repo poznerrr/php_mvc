@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace models;
 
 class PostService
@@ -14,7 +16,7 @@ class PostService
     {
     }
 
-    public function createPost(string $title, string $text, string $author) : void
+    public function createPost(string $title, string $text, string $author): void
     {
         $post = new Post;
         $post->setId(PostService::$counter++);
@@ -26,12 +28,12 @@ class PostService
         static::$posts[] = $post;
     }
 
-    public function getAllPosts() : array
+    public function getAllPosts(): array
     {
         return static::$posts;
     }
 
-    public function deletePost(int $id) : array
+    public function deletePost(int $id): array
     {
         foreach (static::$posts as $post) {
             if ($post->getId() == $id) {
@@ -41,7 +43,7 @@ class PostService
         return $this->getAllPosts();
     }
 
-    public function addPost(Post $post) : void
+    public function addPost(Post $post): void
     {
         static::$posts[] = $post;
     }

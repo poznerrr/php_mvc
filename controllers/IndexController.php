@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace controllers;
 
 use models\PostService;
@@ -26,7 +28,7 @@ class IndexController
     public function delete(): void
     {
         if (isset($_POST['delete']) && isset($_POST['id'])) {
-            $this->posts = $this->postService->deletePost($_POST['id']);
+            $this->posts = $this->postService->deletePost((int)($_POST['id']));
         }
         $this->render();
     }
