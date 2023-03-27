@@ -2,6 +2,8 @@
 
 namespace controllers;
 
+use views\NotFoundView;
+
 class NotFoundController
 {
     public function __construct()
@@ -10,6 +12,6 @@ class NotFoundController
 
     public function render()
     {
-        require dirname(__DIR__) . '/views/404.html';
+        new NotFoundView;
     }
 }

@@ -3,6 +3,7 @@
 namespace controllers;
 
 use models\PostService;
+use views\IndexView;
 
 class IndexController
 {
@@ -19,7 +20,8 @@ class IndexController
     public function render()
     {
         $this->posts = $this->postService->getAllPosts();
-        require dirname(__DIR__) . '/views/index.phtml';
+        new IndexView($this->posts);
+
     }
 
     public function delete()
