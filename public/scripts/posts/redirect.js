@@ -1,4 +1,6 @@
 document.onload = function(){
     const myLocation = window.location.host;
-    setTimeout( ()=>{window.location=`${myLocation}/`}, 5000 );
+    setTimeout(() => {
+        window.location = `http://${myLocation}`;
+    }, 3000);
 }

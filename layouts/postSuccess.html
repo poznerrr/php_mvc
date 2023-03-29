@@ -8,8 +8,14 @@
     <title>Успешно!</title>
 </head>
 <body>
-    Ваша новость добавлена. Вы будете автоматически перенаправлены на главную страницу
+Ваша новость добавлена. Вы будете автоматически перенаправлены на главную страницу
 <script src="public/scripts/posts/redirect.js">
+</script>
+<script>
+    const myLocation = window.location.host;
+    setTimeout(() => {
+        window.location = `http://${myLocation}`;
+    }, 3000);
 </script>
 </body>
 </html>
