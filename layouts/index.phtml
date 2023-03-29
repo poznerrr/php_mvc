@@ -1,0 +1,34 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<?php
+if (!$this->posts) {
+    echo "<p>Новостей пока нету.</p>";
+} else {
+    foreach ($this->posts as $post) {
+        echo "<article>";
+        echo "<h2>" . htmlspecialchars($post->getTitle()) . "</h2>";
+        echo "<div>" . htmlspecialchars($post->getText()) . "</div>";
+        echo "<h5>Автор: " . htmlspecialchars($post->getAuthor()) . "</h5>";
+        echo "<h5>Дата: " . htmlspecialchars($post->getDate()) . "</h5>";
+        echo "</article>";
+        echo <<<_END
+            <form action='' method='post'>
+             <input type="hidden" name="delete" value="yes">
+            <input type="hidden" name="id" value="{$post->getId()}">
+            <input type="submit" value="Удалить новость">
+            </form>
+            <hr>
+           _END;
+    }
+}
+?>
+</body>
+</html>
+
