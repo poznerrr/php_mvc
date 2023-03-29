@@ -8,43 +8,45 @@ class PostService
 {
     use TSingletone;
 
-    public static int $counter = 0;
 
-    private static array $posts;
+    private $db;
 
     protected function __construct()
     {
+        global $dbObject;
+        $this->db = $dbObject;
     }
 
     public function createPost(string $title, string $text, string $author): void
     {
-        $post = new Post;
-        $post->setId(PostService::$counter++);
-        $post->setTitle($title);
-        $post->setText($text);
-        $post->setAuthor($author);
-        $post->setDate(date('d-m-Y H:i:s', time()));
-
-        static::$posts[] = $post;
+        $query = "INSERT INTO posts VALUES (NULL, ?,?,?,?)";
+        $statement = $this->db->prepare($query);
+        $statement->execute(array($title, $text, $author, time()));
     }
 
     public function getAllPosts(): array
     {
-        return static::$posts;
+        $posts = array();
+        $query = "SELECT * from posts";
+        $result = $this->db->query($query);
+        while ($row = $result->fetch()) {
+            $post = new Post;
+            $post->setId($row['postId']);
+            $post->setTitle($row['postTitle']);
+            $post->setText($row['postText']);
+            $post->setAuthor($row['postAuthor']);
+            $post->setDate(date('Y-m-d H:i:s', $row['postDate']));
+
+            $posts[] = $post;
+        }
+        return $posts;
     }
 
     public function deletePost(int $id): array
     {
-        foreach (static::$posts as $post) {
-            if ($post->getId() == $id) {
-                unset(static::$posts[$post->getId()]);
-            }
-        }
+        $query = "DELETE FROM posts WHERE postId=$id";
+        $this->db->query($query);
         return $this->getAllPosts();
     }
 
-    public function addPost(Post $post): void
-    {
-        static::$posts[] = $post;
-    }
 }

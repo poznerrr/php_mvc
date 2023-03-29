@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace app;
 
-use controllers\{NotFoundController, IndexController};
+use controllers\{NotFoundController, IndexController, PostController};
 
 class Router
 {
@@ -22,6 +22,9 @@ class Router
                 } else {
                     (new IndexController)->render();
                 }
+                break;
+            case '/post':
+                (new PostController)->render();
                 break;
             default:
                 (new NotFoundController)->render();
