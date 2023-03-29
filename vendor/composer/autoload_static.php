@@ -19,6 +19,10 @@ class ComposerStaticInit25ce0e0ecd48f03d06a65ac221afaf84
         array (
             'controllers\\' => 12,
         ),
+        'a' => 
+        array (
+            'app\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -34,10 +38,22 @@ class ComposerStaticInit25ce0e0ecd48f03d06a65ac221afaf84
         array (
             0 => __DIR__ . '/../..' . '/controllers',
         ),
+        'app\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
+        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'app\\Router' => __DIR__ . '/../..' . '/app/Router.php',
+        'controllers\\IndexController' => __DIR__ . '/../..' . '/controllers/IndexController.php',
+        'controllers\\NotFoundController' => __DIR__ . '/../..' . '/controllers/NotFoundController.php',
+        'models\\Post' => __DIR__ . '/../..' . '/models/Post.php',
+        'models\\PostService' => __DIR__ . '/../..' . '/models/PostService.php',
+        'models\\TSingletone' => __DIR__ . '/../..' . '/models/TSingletone.php',
+        'views\\IndexView' => __DIR__ . '/../..' . '/views/IndexView.php',
+        'views\\NotFoundView' => __DIR__ . '/../..' . '/views/NotFoundView.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

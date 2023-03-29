@@ -7,4 +7,12 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'app\\Router' => $baseDir . '/app/Router.php',
+    'controllers\\IndexController' => $baseDir . '/controllers/IndexController.php',
+    'controllers\\NotFoundController' => $baseDir . '/controllers/NotFoundController.php',
+    'models\\Post' => $baseDir . '/models/Post.php',
+    'models\\PostService' => $baseDir . '/models/PostService.php',
+    'models\\TSingletone' => $baseDir . '/models/TSingletone.php',
+    'views\\IndexView' => $baseDir . '/views/IndexView.php',
+    'views\\NotFoundView' => $baseDir . '/views/NotFoundView.php',
 );
