@@ -15,12 +15,15 @@ class PostController
 
     public function render(): void
     {
+        $status = null;
         if (isset($_POST['title']) && isset($_POST['text']) && isset($_POST['author'])) {
             $postService = PostService::getInstance();
             $postService->createPost($_POST['title'], $_POST['text'], $_POST['author']);
-            new PostView('success');
+            $status = 'success';
         } else {
-            new PostView('new');
+            $status = 'new';
         }
+        (new PostView($status))->build();
+
     }
 }

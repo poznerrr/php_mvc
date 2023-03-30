@@ -9,7 +9,7 @@ class PostService
     use TSingletone;
 
 
-    private $db;
+    private \PDO $db;
 
     protected function __construct()
     {

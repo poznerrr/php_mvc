@@ -14,6 +14,6 @@ class NotFoundController
 
     public function render(): void
     {
-        new NotFoundView;
+        (new NotFoundView)->build();
     }
 }

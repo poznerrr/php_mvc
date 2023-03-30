@@ -2,20 +2,28 @@
 
 namespace views;
 
+use app\lib\traits\TPageBuilder;
+
 class PostView
 {
+    use TPageBuilder;
+
+    private string $header;
+
+    private string $headerPath;
+
+    private string $templatePath;
+
     public function __construct($postStatus)
     {
         switch ($postStatus) {
             case 'new':
-                ob_start();
-                require dirname(__DIR__) . '/layouts/post.phtml';
-                ob_end_flush();
+                $this->headerPath = dirname(__DIR__) . '/layouts/header.html';
+                $this->templatePath = dirname(__DIR__) . '/layouts/post.phtml';
                 break;
             case 'success':
-                ob_start();
-                require dirname(__DIR__) . '/layouts/postSuccess.html';
-                ob_end_flush();
+                $this->headerPath = dirname(__DIR__) . '/layouts/header.html';
+                $this->templatePath = dirname(__DIR__) . '/layouts/postSuccess.phtml';
                 break;
         }
     }

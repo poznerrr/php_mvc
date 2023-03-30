@@ -5,7 +5,8 @@
       "controllers\\": "controllers",
       "models\\": "models",
       "views\\": "views",
-      "app\\": "app"
+      "app\\": "app",
+      "app\\lib\\traits\\": "app/lib/traits"
     }
   }
 }

@@ -20,7 +20,7 @@ class IndexController
     public function render(): void
     {
         $this->posts = $this->postService->getAllPosts();
-        new IndexView($this->posts);
+        (new IndexView($this->posts))->build();
     }
 
     public function delete(): void

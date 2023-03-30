@@ -8,6 +8,9 @@
     <title>Document</title>
 </head>
 <body>
+<?php
+echo $this->header;
+?>
 <h2>Добавьте вашу новость:</h2>
 <form method="post" action="/post">
     Заголовок: <input type="text" name="title" required="required"><br><br>
