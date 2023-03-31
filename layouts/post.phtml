@@ -15,7 +15,24 @@ echo $this->header;
 <form method="post" action="/post">
     Заголовок: <input type="text" name="title" required="required"><br><br>
     Текст статьи: <textarea name="text" required="required"></textarea><br><br>
-    Автор: <input type="text" name="author" required="required"><br><br>
+    Автор: <select name="author" size="1" required>
+        <option value="" selected disabled>Выберите автора</option>
+        <?php
+        foreach ($this->users as $user)
+        {
+            echo "<option value='{$user->getId()}'>{$user->getName()}</option>>";
+        }
+        ?>
+    </select><br><br>
+    Категория: <select name="category" size="1" required>
+        <option selected disabled value="">Выберите категорию</option>
+        <?php
+        foreach ($this->categories as $category)
+        {
+            echo "<option value='{$category->getId()}'>{$category->getName()}</option>>";
+        }
+        ?>
+    </select><br><br>
     <input type="submit" value="Отправить">
 </form>
 </body>

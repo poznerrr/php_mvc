@@ -66,5 +66,17 @@ class Post
         $this->author = $author;
     }
 
+    private string $category;
+
+    public function getCategory(): string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): void
+    {
+        $this->category = $category;
+    }
+
 
 }
