@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace models;
 
 use app\Registry;
