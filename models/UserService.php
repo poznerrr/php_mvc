@@ -2,6 +2,8 @@
 
 namespace models;
 
+use app\Registry;
+
 class UserService
 {
     use TSingletone;
@@ -10,8 +12,7 @@ class UserService
 
     protected function __construct()
     {
-        global $dbObject;
-        $this->db = $dbObject;
+        $this->db = Registry::get('dbObject');
     }
 
     public function getAllUsers(): array

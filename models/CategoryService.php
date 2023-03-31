@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace models;
 
+use app\Registry;
+
 class CategoryService
 {
     use TSingletone;
@@ -12,8 +14,7 @@ class CategoryService
 
     protected function __construct()
     {
-        global $dbObject;
-        $this->db = $dbObject;
+        $this->db = Registry::get('dbObject');
     }
 
     public function getAllCategories(): array

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace models;
 
+use app\Registry;
+
 class PostService
 {
     use TSingletone;
@@ -13,8 +15,8 @@ class PostService
 
     protected function __construct()
     {
-        global $dbObject;
-        $this->db = $dbObject;
+
+        $this->db = Registry::get('dbObject');
     }
 
     public function createPost(string $title, string $text, int $userId, int $categoryId): void
