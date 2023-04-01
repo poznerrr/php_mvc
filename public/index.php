@@ -4,7 +4,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 require_once dirname(__DIR__) . '/config/db.php';
 
-use app\{Router, Registry};
+use Source\App\{Router, Registry};
 
 $router = new Router();
 $dbObject = new PDO($attr, $user, $pass, $opts);

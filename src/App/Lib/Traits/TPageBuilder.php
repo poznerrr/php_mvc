@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\lib\traits;
+namespace Source\App\Lib\Traits;
 
 trait TPageBuilder
 {

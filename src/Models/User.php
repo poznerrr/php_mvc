@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
-namespace models;
+namespace Source\Models;
 
-class Category
+class User
 {
     private int $id;
 

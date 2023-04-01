@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace views;
+namespace Source\Views;
 
-use app\lib\traits\TPageBuilder;
+use Source\App\Lib\Traits\TPageBuilder;
 
 class IndexView
 {
@@ -20,8 +20,8 @@ class IndexView
     public function __construct(array $posts)
     {
         $this->posts = $posts;
-        $this->headerPath = dirname(__DIR__) . '/layouts/header.html';
-        $this->templatePath = dirname(__DIR__) . '/layouts/index.phtml';
+        $this->headerPath = dirname(__DIR__) . '/Layouts/header.html';
+        $this->templatePath = dirname(__DIR__) . '/Layouts/index.phtml';
 
     }
 }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace app;
+namespace Source\App;
 
-use controllers\{NotFoundController, IndexController, PostController};
+use Source\Controllers\{NotFoundController, IndexController, PostController};
 
 class Router
 {

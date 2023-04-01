@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace controllers;
+namespace Source\Controllers;
 
-use views\NotFoundView;
+use Source\Views\NotFoundView;
 
 class NotFoundController
 {

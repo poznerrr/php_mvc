@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace controllers;
+namespace Source\Controllers;
 
-use models\PostService;
-use views\IndexView;
+use Source\Models\PostService;
+use Source\Views\IndexView;
 
 class IndexController
 {

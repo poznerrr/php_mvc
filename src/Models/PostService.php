@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace models;
+namespace Source\Models;
 
-use app\Registry;
+use Source\App\Registry;
 
 class PostService
 {

@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
 
-namespace views;
+namespace Source\Views;
 
-use app\lib\traits\TPageBuilder;
-use models\Post;
+use Source\App\Lib\Traits\TPageBuilder;
 
 class PostView
 {
@@ -27,12 +27,12 @@ class PostView
         switch ($postStatus) {
             case 'new':
                 $this->categories = $categories;
-                $this->headerPath = dirname(__DIR__) . '/layouts/header.html';
-                $this->templatePath = dirname(__DIR__) . '/layouts/post.phtml';
+                $this->headerPath = dirname(__DIR__) . '/Layouts/header.html';
+                $this->templatePath = dirname(__DIR__) . '/Layouts/post.phtml';
                 break;
             case 'success':
-                $this->headerPath = dirname(__DIR__) . '/layouts/header.html';
-                $this->templatePath = dirname(__DIR__) . '/layouts/postSuccess.phtml';
+                $this->headerPath = dirname(__DIR__) . '/Layouts/header.html';
+                $this->templatePath = dirname(__DIR__) . '/Layouts/postSuccess.phtml';
                 break;
         }
     }

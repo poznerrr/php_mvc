@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace controllers;
+namespace Source\Controllers;
 
-use models\{PostService, CategoryService, UserService};
-use views\PostView;
+use Source\Models\{CategoryService, PostService, UserService};
+use Source\Views\PostView;
 
 class PostController
 {

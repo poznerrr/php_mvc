@@ -1,12 +1,11 @@
 {
-  "require": {},
+  "require": {
+    "php": "^8.0",
+    "ext-pdo": "*"
+  },
   "autoload": {
     "psr-4": {
-      "controllers\\": "controllers",
-      "models\\": "models",
-      "views\\": "views",
-      "app\\": "app",
-      "app\\lib\\traits\\": "app/lib/traits"
+      "Source\\": "src"
     }
   }
 }

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace views;
+namespace Source\Views;
 
-use app\lib\traits\TPageBuilder;
+use Source\App\Lib\Traits\TPageBuilder;
 
 class NotFoundView
 {
@@ -17,7 +17,7 @@ class NotFoundView
 
     public function __construct()
     {
-        $this->headerPath = dirname(__DIR__) . '/layouts/header.html';
-        $this->templatePath = dirname(__DIR__) . '/layouts/404.phtml';
+        $this->headerPath = dirname(__DIR__) . '/Layouts/header.html';
+        $this->templatePath = dirname(__DIR__) . '/Layouts/404.phtml';
     }
 }
