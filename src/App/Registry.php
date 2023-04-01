@@ -6,27 +6,27 @@ namespace Source\App;
 
 class Registry
 {
-    private static array $_storage = array();
+    private static array $storage = array();
 
     public static function set($key, $value)
     {
-        return self::$_storage[$key] = $value;
+        return self::$storage[$key] = $value;
     }
 
     public static function get($key, $default = null)
     {
-        return (isset(self::$_storage[$key])) ? self::$_storage[$key] : $default;
+        return self::$storage[$key] ?? $default;
     }
 
     public static function remove($key): bool
     {
-        unset(self::$_storage[$key]);
+        unset(self::$storage[$key]);
         return true;
     }
 
     public static function clean():bool
     {
-        self::$_storage = array();
+        self::$storage = array();
         return true;
     }
 }
