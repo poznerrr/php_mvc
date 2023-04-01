@@ -6,7 +6,7 @@ namespace Source\App;
 
 class Registry
 {
-    private static array $storage = array();
+    private static array $storage = [];
 
     public static function set($key, $value)
     {
