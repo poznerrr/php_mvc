@@ -7,7 +7,7 @@ namespace Source\Controllers;
 use Source\Models\PostService;
 use Source\Views\IndexView;
 
-class IndexController
+class IndexController extends Controller
 {
     public array $posts;
     public PostService $postService;
@@ -19,17 +19,13 @@ class IndexController
 
     public function render(): void
     {
-        $this->posts = $this->postService->getAllPosts();
+        if (isset($_POST['delete']) && isset($_POST['id'])) {
+            $this->posts = $this->postService->deletePost((int)($_POST['id']));
+        } else
+            $this->posts = $this->postService->getAllPosts();
         (new IndexView($this->posts))->build();
     }
 
-    public function delete(): void
-    {
-        if (isset($_POST['delete']) && isset($_POST['id'])) {
-            $this->posts = $this->postService->deletePost((int)($_POST['id']));
-        }
-        $this->render();
-    }
 }
 
 

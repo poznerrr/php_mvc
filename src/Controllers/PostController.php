@@ -7,7 +7,7 @@ namespace Source\Controllers;
 use Source\Models\{CategoryService, PostService, UserService};
 use Source\Views\PostView;
 
-class PostController
+class PostController extends Controller
 {
     public function __construct()
     {

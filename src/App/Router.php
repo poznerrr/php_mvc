@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Source\App;
 
-use Source\Controllers\{NotFoundController, IndexController, PostController};
+use Source\Controllers\Controller;
 
 class Router
 {
@@ -15,21 +15,16 @@ class Router
 
     public function route(string $url): void
     {
-        switch ($url) {
-            case '/':
-                if (isset($_POST['delete']) && isset($_POST['id'])) {
-                    (new IndexController)->delete();
-                } else {
-                    (new IndexController)->render();
-                }
-                break;
-            case '/post':
-                (new PostController)->render();
-                break;
-            default:
-                (new NotFoundController)->render();
-                break;
-        }
+        $this->getController($url)->render();
+    }
+
+    private function getController(string $url): Controller
+    {
+        return match ($url) {
+            '/' => IndexControllerFactory::createController(),
+            '/post' => PostControllerFactory::createController(),
+            default => NotFoundControllerFactory::createController(),
+        };
     }
 
 

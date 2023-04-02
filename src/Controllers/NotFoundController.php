@@ -6,7 +6,7 @@ namespace Source\Controllers;
 
 use Source\Views\NotFoundView;
 
-class NotFoundController
+class NotFoundController extends Controller
 {
     public function __construct()
     {
