@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Source\Controllers;
 
+use Source\App\Registry;
 use Source\Views\NotFoundView;
 
 class NotFoundController extends Controller
@@ -14,6 +15,6 @@ class NotFoundController extends Controller
 
     public function render(): void
     {
-        (new NotFoundView)->build();
+        (new NotFoundView(Registry::get('domainConfig')))->build();
     }
 }

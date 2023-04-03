@@ -15,9 +15,9 @@ class NotFoundView
 
     private string $templatePath;
 
-    public function __construct()
+    public function __construct(private array $domainConfig)
     {
-        $this->headerPath = dirname(__DIR__) . '/Layouts/header.html';
+        $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
         $this->templatePath = dirname(__DIR__) . '/Layouts/404.phtml';
     }
 }

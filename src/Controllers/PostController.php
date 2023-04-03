@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Source\Controllers;
 
 use Source\Models\{CategoryService, PostService, UserService};
+use Source\App\Registry;
 use Source\Views\PostView;
 
 class PostController extends Controller
@@ -29,7 +30,7 @@ class PostController extends Controller
 
             $status = 'new';
         }
-        (new PostView($status,$categories, $users))->build();
+        (new PostView(Registry::get('domainConfig'),$status,$categories, $users))->build();
 
     }
 }

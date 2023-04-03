@@ -15,23 +15,16 @@ class PostView
 
     private string $templatePath;
 
-    private array|null $categories;
-
-    private array|null $users;
-
-    public function __construct(string $postStatus, array|null $categories, array|null $users)
+    public function __construct(private array $domainConfig, string $postStatus, private array|null $categories, private array|null $users)
     {
-        $this->categories = $categories;
-        $this->users = $users;
-
         switch ($postStatus) {
             case 'new':
                 $this->categories = $categories;
-                $this->headerPath = dirname(__DIR__) . '/Layouts/header.html';
+                $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
                 $this->templatePath = dirname(__DIR__) . '/Layouts/post.phtml';
                 break;
             case 'success':
-                $this->headerPath = dirname(__DIR__) . '/Layouts/header.html';
+                $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
                 $this->templatePath = dirname(__DIR__) . '/Layouts/postSuccess.phtml';
                 break;
         }

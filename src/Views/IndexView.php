@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Source\Views;
@@ -9,7 +10,6 @@ class IndexView
 {
     use TPageBuilder;
 
-    private array $posts;
     private string $header;
 
     private string $headerPath;
@@ -17,12 +17,10 @@ class IndexView
     private string $templatePath;
 
 
-    public function __construct(array $posts)
+    public function __construct(private array $domainConfig, private array $posts)
     {
-        $this->posts = $posts;
-        $this->headerPath = dirname(__DIR__) . '/Layouts/header.html';
+        $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
         $this->templatePath = dirname(__DIR__) . '/Layouts/index.phtml';
-
     }
 }
 
