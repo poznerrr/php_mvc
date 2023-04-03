@@ -1,25 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Source\Views;
 
-use Source\App\Lib\Traits\TPageBuilder;
-
-class PostView
+class PostView extends View
 {
-    use TPageBuilder;
-
-    private string $header;
-
-    private string $headerPath;
-
-    private string $templatePath;
-
-    public function __construct(private array $domainConfig, string $postStatus, private array|null $categories, private array|null $users)
-    {
+    public function __construct(
+        protected array $domainConfig,
+        protected string $postStatus,
+        protected array|null $categories,
+        protected array|null $users
+    ) {
         switch ($postStatus) {
             case 'new':
-                $this->categories = $categories;
                 $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
                 $this->templatePath = dirname(__DIR__) . '/Layouts/post.phtml';
                 break;

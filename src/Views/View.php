@@ -2,11 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Source\App\Lib\Traits;
+namespace Source\Views;
 
-trait TPageBuilder
+abstract class View
 {
-    public function buildTemplate(string $templatePath): string
+    protected string $header;
+
+
+    public function __construct(protected string $templatePath, protected string $headerPath)
+    {
+    }
+
+    protected function buildTemplate(string $templatePath): string
     {
         ob_start();
         require_once $templatePath;
@@ -18,4 +25,5 @@ trait TPageBuilder
         $this->header = $this->buildTemplate($this->headerPath);
         echo $this->buildTemplate($this->templatePath);
     }
+
 }
