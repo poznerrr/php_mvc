@@ -1,30 +1,30 @@
 CREATE
-DATABASE MVC;
+DATABASE mvc;
 USE
-MVC;
-CREATE TABLE Users
+mvc;
+CREATE TABLE users
 (
-    UserId   INT AUTO_INCREMENT PRIMARY KEY,
-    UserName VARCHAR(50) NOT NULL
+    user_id   INT AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Categories
+CREATE TABLE categories
 (
-    CategoryId   INT AUTO_INCREMENT PRIMARY KEY,
-    CategoryName VARCHAR(30) NOT NULL
+    category_id   INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE Posts
+CREATE TABLE posts
 (
-    PostId     INT AUTO_INCREMENT PRIMARY KEY,
-    Title      VARCHAR(255) NOT NULL,
-    PostText   TEXT         NOT NULL,
-    UserId     INT,
-    CategoryId INT,
-    PostDate   INT,
+    post_id     INT AUTO_INCREMENT PRIMARY KEY,
+    title       VARCHAR(255) NOT NULL,
+    post_text   TEXT         NOT NULL,
+    user_id     INT,
+    category_id INT,
+    post_date   INT,
     CONSTRAINT posts_users_fk
-        FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT posts_categories_fk
-        FOREIGN KEY (CategoryId) REFERENCES Categories (CategoryId) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (category_id) REFERENCES categories (category_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

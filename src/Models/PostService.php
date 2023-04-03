@@ -15,7 +15,6 @@ class PostService
 
     protected function __construct()
     {
-
         $this->db = Registry::get('dbObject');
     }
 
@@ -30,19 +29,19 @@ class PostService
     public function getAllPosts(): array
     {
         $posts = array();
-        $query = "SELECT Posts.PostId, Posts.Title, Posts.PostText, Posts.PostDate, 
-            Categories.CategoryName, Users.UserName
+        $query = "SELECT posts.post_id, posts.title, posts.post_text, posts.post_date, 
+            categories.category_name, users.user_name
             FROM posts, categories, users
-            WHERE Posts.CategoryId = Categories.CategoryId AND Posts.UserId = Users.UserId";
+            WHERE posts.category_id = categories.category_id AND posts.user_id = users.user_id";
         $result = $this->db->query($query);
         while ($row = $result->fetch()) {
             $post = new Post;
-            $post->setId($row['PostId']);
-            $post->setCategory($row['CategoryName']);
-            $post->setTitle($row['Title']);
-            $post->setText($row['PostText']);
-            $post->setAuthor($row['UserName']);
-            $post->setDate(date('Y-m-d H:i:s', $row['PostDate']));
+            $post->setId($row['post_id']);
+            $post->setCategory($row['category_name']);
+            $post->setTitle($row['title']);
+            $post->setText($row['post_text']);
+            $post->setAuthor($row['user_name']);
+            $post->setDate(date('Y-m-d H:i:s', $row['post_date']));
 
             $posts[] = $post;
         }
@@ -51,7 +50,7 @@ class PostService
 
     public function deletePost(int $id): array
     {
-        $query = "DELETE FROM posts WHERE postId=$id";
+        $query = "DELETE FROM posts WHERE post_id=$id";
         $this->db->query($query);
         return $this->getAllPosts();
     }

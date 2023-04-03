@@ -20,13 +20,13 @@ class UserService
     public function getAllUsers(): array
     {
         $users = array();
-        $query = "SELECT UserId, UserName
+        $query = "SELECT user_id, user_name
             FROM users";
         $result = $this->db->query($query);
         while ($row = $result->fetch()) {
             $user = new User();
-            $user->setId($row['UserId']);
-            $user->setName($row['UserName']);
+            $user->setId($row['user_id']);
+            $user->setName($row['user_name']);
 
             $users[] = $user;
         }

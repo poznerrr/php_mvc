@@ -20,13 +20,13 @@ class CategoryService
     public function getAllCategories(): array
     {
         $categories = array();
-        $query = "SELECT CategoryId, CategoryName
+        $query = "SELECT category_id, category_name
             FROM categories";
         $result = $this->db->query($query);
         while ($row = $result->fetch()) {
             $category = new Category;
-            $category->setId($row['CategoryId']);
-            $category->setName($row['CategoryName']);
+            $category->setId($row['category_id']);
+            $category->setName($row['category_name']);
 
             $categories[] = $category;
         }
