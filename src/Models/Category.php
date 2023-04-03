@@ -7,6 +7,7 @@ namespace Source\Models;
 class Category
 {
     private int $id;
+    private string $name;
 
     public function getId(): int
     {
@@ -17,8 +18,6 @@ class Category
     {
         $this->id = $id;
     }
-
-    private string $name;
 
     public function getName(): string
     {

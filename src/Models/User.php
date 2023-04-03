@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Source\Models;
@@ -6,6 +7,7 @@ namespace Source\Models;
 class User
 {
     private int $id;
+    private string $name;
 
     public function getId(): int
     {
@@ -16,8 +18,6 @@ class User
     {
         $this->id = $id;
     }
-
-    private string $name;
 
     public function getName(): string
     {
