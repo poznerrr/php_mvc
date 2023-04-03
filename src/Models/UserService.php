@@ -19,7 +19,7 @@ class UserService
 
     public function getAllUsers(): array
     {
-        $users = array();
+        $users = [];
         $query = "SELECT user_id, user_name
             FROM users";
         $result = $this->db->query($query);

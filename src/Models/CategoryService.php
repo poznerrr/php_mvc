@@ -19,7 +19,7 @@ class CategoryService
 
     public function getAllCategories(): array
     {
-        $categories = array();
+        $categories = [];
         $query = "SELECT category_id, category_name
             FROM categories";
         $result = $this->db->query($query);

@@ -22,13 +22,13 @@ class PostService
     {
         $query = "INSERT INTO posts VALUES (NULL, ?,?,?,?,?)";
         $statement = $this->db->prepare($query);
-        $statement->execute(array($title, $text, $userId, $categoryId, time()));
+        $statement->execute([$title, $text, $userId, $categoryId, time()]);
     }
 
 
     public function getAllPosts(): array
     {
-        $posts = array();
+        $posts = [];
         $query = "SELECT posts.post_id, posts.title, posts.post_text, posts.post_date, 
             categories.category_name, users.user_name
             FROM posts, categories, users
