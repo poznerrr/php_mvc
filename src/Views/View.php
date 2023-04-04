@@ -20,10 +20,10 @@ abstract class View
         return ob_get_clean();
     }
 
-    public function build(): void
+    public function build(): string
     {
         $this->header = $this->buildTemplate($this->headerPath);
-        echo $this->buildTemplate($this->templatePath);
+        return $this->buildTemplate($this->templatePath);
     }
 
 }

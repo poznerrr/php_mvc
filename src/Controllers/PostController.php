@@ -10,6 +10,7 @@ use Source\Views\PostView;
 
 class PostController extends Controller
 {
+
     public function __construct()
     {
     }
@@ -17,7 +18,7 @@ class PostController extends Controller
     public function render(): void
     {
         $categories = null;
-        $users=null;
+        $users = null;
         if (isset($_POST['title']) && isset($_POST['text']) && isset($_POST['author']) && isset($_POST['category'])) {
             $postService = PostService::getInstance();
             $postService->createPost($_POST['title'], $_POST['text'], (int)$_POST['author'], (int)$_POST['category']);
@@ -30,7 +31,7 @@ class PostController extends Controller
 
             $status = 'new';
         }
-        (new PostView(Registry::get('domainConfig'),$status,$categories, $users))->build();
-
+        $view = (new PostView(Registry::get('domainConfig'), $status, $categories, $users))->build();
+        $this->showOnMonitor($view);
     }
 }

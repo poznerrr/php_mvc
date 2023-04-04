@@ -6,4 +6,9 @@ namespace Source\Controllers;
 abstract class Controller
 {
     abstract public function render(): void;
+
+    protected function showOnMonitor(string $view): void
+    {
+        echo $view;
+    }
 } 
