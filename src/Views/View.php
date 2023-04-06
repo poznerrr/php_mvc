@@ -10,14 +10,19 @@ abstract class View
     protected string $head;
     protected string $footer;
     protected string $main;
+    protected string $templatePath;
+    protected string $headerPath;
+    protected string $headPath;
+    protected string $footerPath;
+    protected string $mainPath = '';
 
 
-    public function __construct(protected string $templatePath,
-                                protected string $headerPath,
-                                protected string $mainPath,
-                                protected string $headPath,
-                                protected string $footerPath)
+    public function __construct()
     {
+        $this->headPath = dirname(__DIR__) . '/Layouts/head.phtml';
+        $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
+        $this->footerPath = dirname(__DIR__) . '/Layouts/footer.phtml';
+        $this->templatePath = dirname(__DIR__) . '/Layouts/template.phtml';
     }
 
     protected function buildTemplate(string $templatePath): string
