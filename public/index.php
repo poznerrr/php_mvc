@@ -6,17 +6,15 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 use Source\App\{Router, Registry};
 
 $router = new Router();
-$dbConfig = require_once dirname(__DIR__) . '/config/dbConfig.php';
-$domainConfig = require_once dirname(__DIR__) . '/config/domainConfig.php';
+$config = require_once dirname(__DIR__) . '/config/config.php';
 
-$dbObject = new PDO($dbConfig['attr'], $dbConfig['user'], $dbConfig['pass'], $dbConfig['opts']);
+$dbObject = new PDO($config['db']['host'], $config['db']['user'], $config['db']['pass'], $config['db']['opts']);
 
 Registry::set('dbObject', $dbObject);
-Registry::set('domainConfig', $domainConfig);
+Registry::set('domain', $config['domain']);
 
 $router->route($_SERVER['REQUEST_URI']);
 
-// echo "Вы находитесь по адресу: ".parse_ugit branchrl($url, PHP_URL_PATH);
 
 
 

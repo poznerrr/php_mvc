@@ -7,7 +7,7 @@ namespace Source\Views;
 class PostView extends View
 {
     public function __construct(
-        protected array $domainConfig,
+        protected string $domain,
         protected string $postStatus,
         protected array|null $categories,
         protected array|null $users

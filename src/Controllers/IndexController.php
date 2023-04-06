@@ -24,7 +24,7 @@ class IndexController extends Controller
             $this->posts = $this->postService->deletePost((int)($_POST['id']));
         } else
             $this->posts = $this->postService->getAllPosts();
-        $view = (new IndexView(Registry::get('domainConfig'),$this->posts))->build();
+        $view = (new IndexView(Registry::get('domain'),$this->posts))->build();
         $this->showOnMonitor($view);
     }
 
