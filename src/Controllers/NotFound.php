@@ -7,7 +7,7 @@ namespace Source\Controllers;
 use Source\App\Registry;
 use Source\Views\NotFoundView;
 
-class NotFoundController extends Controller
+class NotFound extends Controller
 {
     public function __construct()
     {

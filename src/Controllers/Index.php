@@ -8,7 +8,7 @@ use Source\App\Registry;
 use Source\Models\PostService;
 use Source\Views\IndexView;
 
-class IndexController extends Controller
+class Index extends Controller
 {
     public array $posts;
     public PostService $postService;
