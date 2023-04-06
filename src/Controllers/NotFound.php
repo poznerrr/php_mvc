@@ -15,7 +15,7 @@ class NotFound extends Controller
 
     public function render(): void
     {
-        $view = (new NotFoundView(Registry::get('domain')))->build();
+        $view = (new NotFoundView(Registry::get('domain')))->buildHTML();
         $this->showOnMonitor($view);
     }
 }

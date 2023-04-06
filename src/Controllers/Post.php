@@ -31,7 +31,7 @@ class Post extends Controller
 
             $status = 'new';
         }
-        $view = (new PostView(Registry::get('domain'), $status, $categories, $users))->build();
+        $view = (new PostView(Registry::get('domain'), $status, $categories, $users))->buildHTML();
         $this->showOnMonitor($view);
     }
 }

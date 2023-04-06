@@ -12,14 +12,16 @@ class PostView extends View
         protected array|null $categories,
         protected array|null $users
     ) {
+        $this->headPath = dirname(__DIR__) . '/Layouts/head.phtml';
+        $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
+        $this->footerPath = dirname(__DIR__) . '/Layouts/footer.phtml';
+        $this->templatePath = dirname(__DIR__) . '/Layouts/template.phtml';
         switch ($postStatus) {
             case 'new':
-                $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
-                $this->templatePath = dirname(__DIR__) . '/Layouts/post.phtml';
+                $this->mainPath = dirname(__DIR__) . '/Layouts/post.phtml';
                 break;
             case 'success':
-                $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
-                $this->templatePath = dirname(__DIR__) . '/Layouts/postSuccess.phtml';
+                $this->mainPath = dirname(__DIR__) . '/Layouts/postSuccess.phtml';
                 break;
         }
     }
