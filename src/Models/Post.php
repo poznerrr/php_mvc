@@ -2,11 +2,16 @@
 
 declare(strict_types=1);
 
-namespace models;
+namespace Source\Models;
 
 class Post
 {
     private int $id;
+    private string $title;
+    private string $date;
+    private string $text;
+    private string $category;
+    private string $author;
 
     public function getId(): int
     {
@@ -18,8 +23,6 @@ class Post
         $this->id = $id;
     }
 
-    private string $title;
-
     public function getTitle(): string
     {
         return $this->title;
@@ -29,8 +32,6 @@ class Post
     {
         $this->title = $title;
     }
-
-    private string $date;
 
     public function getDate(): string
     {
@@ -42,8 +43,6 @@ class Post
         $this->date = $date;
     }
 
-    private string $text;
-
     public function getText(): string
     {
         return $this->text;
@@ -54,8 +53,6 @@ class Post
         $this->text = $text;
     }
 
-    private string $author;
-
     public function getAuthor(): string
     {
         return $this->author;
@@ -64,6 +61,16 @@ class Post
     public function setAuthor(string $author): void
     {
         $this->author = $author;
+    }
+
+    public function getCategory(): string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): void
+    {
+        $this->category = $category;
     }
 
 

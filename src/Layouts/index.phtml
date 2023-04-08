@@ -8,6 +8,7 @@
 </head>
 <body>
 <?php
+echo $this->header;
 if (!$this->posts) {
     echo "<p>Новостей пока нету.</p>";
 } else {
@@ -15,6 +16,7 @@ if (!$this->posts) {
         echo "<article>";
         echo "<h2>" . htmlspecialchars($post->getTitle()) . "</h2>";
         echo "<div>" . htmlspecialchars($post->getText()) . "</div>";
+        echo "<h5>Категория: " . htmlspecialchars($post->getCategory()) . "</h5>";
         echo "<h5>Автор: " . htmlspecialchars($post->getAuthor()) . "</h5>";
         echo "<h5>Дата: " . htmlspecialchars($post->getDate()) . "</h5>";
         echo "</article>";

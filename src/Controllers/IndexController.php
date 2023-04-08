@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace controllers;
+namespace Source\Controllers;
 
-use models\PostService;
-use views\IndexView;
+use Source\App\Registry;
+use Source\Models\PostService;
+use Source\Views\IndexView;
 
-class IndexController
+class IndexController extends Controller
 {
     public array $posts;
     public PostService $postService;
@@ -19,17 +20,14 @@ class IndexController
 
     public function render(): void
     {
-        $this->posts = $this->postService->getAllPosts();
-        new IndexView($this->posts);
-    }
-
-    public function delete(): void
-    {
         if (isset($_POST['delete']) && isset($_POST['id'])) {
             $this->posts = $this->postService->deletePost((int)($_POST['id']));
-        }
-        $this->render();
+        } else
+            $this->posts = $this->postService->getAllPosts();
+        $view = (new IndexView(Registry::get('domain'),$this->posts))->build();
+        $this->showOnMonitor($view);
     }
+
 }
 
 

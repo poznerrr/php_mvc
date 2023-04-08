@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<?php
+echo $this->header;
+?>
+<h2>Добавьте вашу новость:</h2>
+<form method="post" action="/post">
+    Заголовок: <input type="text" name="title" required="required"><br><br>
+    Текст статьи: <textarea name="text" required="required"></textarea><br><br>
+    Автор: <select name="author" size="1" required>
+        <option value="" selected disabled>Выберите автора</option>
+        <?php
+        foreach ($this->users as $user)
+        {
+            echo "<option value='{$user->getId()}'>{$user->getName()}</option>>";
+        }
+        ?>
+    </select><br><br>
+    Категория: <select name="category" size="1" required>
+        <option selected disabled value="">Выберите категорию</option>
+        <?php
+        foreach ($this->categories as $category)
+        {
+            echo "<option value='{$category->getId()}'>{$category->getName()}</option>>";
+        }
+        ?>
+    </select><br><br>
+    <input type="submit" value="Отправить">
+</form>
+</body>
+</html>
