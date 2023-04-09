@@ -3,9 +3,15 @@
 declare(strict_types=1);
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+if (PHP_SAPI === 'cli') {
+    echo "Скрипт запущен...\n";
+} else {
+    die("Заупустите скрипт из консоли");
+}
+
 $config = require dirname(__DIR__) . '/config/config.php';
 $dbObject = new PDO($config['db']['host'], $config['db']['user'], $config['db']['pass'], $config['db']['opts']);
-const TABLE_MIGRATIONS = 'sql_migrations';
+const TABLE_MIGRATIONS = 'migrations';
 
 $files = getMigrationFiles($dbObject);
 if (empty($files)) {
@@ -14,18 +20,22 @@ if (empty($files)) {
     echo "Старт миграции...\n\n";
 
     foreach ($files as $file) {
-        migrate($config, $dbObject, $file);
+        migrate($dbObject, $file);
         echo basename($file) . "\n";
     }
     echo "Миграция завершена.\n";
 }
 
-function getMigrationFiles($con): array
+function getMigrationFiles(PDO $con): array
 {
     $sqlFolder = __DIR__ . '/sql_migrations/';
-    echo "$sqlFolder";
-    $allFiles = glob($sqlFolder . '*sql');
-    echo var_dump($allFiles);
+    echo "Директория с sql: $sqlFolder \n";
+    $handleDir = opendir($sqlFolder);
+    while (false !== ($file = readdir($handleDir)))
+    {
+        if ($file != "." && $file != "..")
+        $allFiles[] = $sqlFolder.$file;
+    }
     $query = sprintf("SHOW TABLES LIKE '%s'", TABLE_MIGRATIONS);
     $data = $con->query($query);
     if (!$data->rowCount()) {
@@ -41,18 +51,11 @@ function getMigrationFiles($con): array
     return array_diff($allFiles, $versionsFiles);
 }
 
-function migrate($config, $con, $file)
+function migrate($con, $file): void
 {
-    $command = sprintf(
-        "mysql -u%s -p%s -h %s %s  < %s",
-        $config['db']['user'],
-        $config['db']['pass'],
-        $config['db']['hostName'],
-        $config['db']['dbname'],
-        $file
-    );
-    shell_exec($command);
-
+    $query = file_get_contents($file);
+    echo $file;
+    $con->exec($query);
     $baseName = basename($file);
     $query = sprintf("INSERT INTO %s (name) VALUES('%s')", TABLE_MIGRATIONS, $baseName);
     $con->query($query);
