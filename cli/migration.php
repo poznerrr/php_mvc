@@ -1,11 +1,11 @@
 <?php
 
 declare(strict_types=1);
-require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$config = require dirname(__DIR__, 3) . '/config/config.php';
+$config = require dirname(__DIR__) . '/config/config.php';
 $dbObject = new PDO($config['db']['host'], $config['db']['user'], $config['db']['pass'], $config['db']['opts']);
-const TABLE_MIGRATIONS = 'migrations';
+const TABLE_MIGRATIONS = 'sql_migrations';
 
 $files = getMigrationFiles($dbObject);
 if (empty($files)) {
@@ -22,9 +22,10 @@ if (empty($files)) {
 
 function getMigrationFiles($con): array
 {
-    $sqlFolder = str_replace('\\', '/', realpath(dirname(__FILE__)) . '/');
+    $sqlFolder = __DIR__ . '/sql_migrations/';
     echo "$sqlFolder";
     $allFiles = glob($sqlFolder . '*sql');
+    echo var_dump($allFiles);
     $query = sprintf("SHOW TABLES LIKE '%s'", TABLE_MIGRATIONS);
     $data = $con->query($query);
     if (!$data->rowCount()) {
