@@ -6,7 +6,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 if (PHP_SAPI === 'cli') {
     echo "Скрипт запущен...\n";
 } else {
-    die("Заупустите скрипт из консоли");
+    die("Запустите скрипт из консоли");
 }
 
 $config = require dirname(__DIR__) . '/config/config.php';
@@ -28,14 +28,27 @@ if (empty($files)) {
 
 function getMigrationFiles(PDO $con): array
 {
-    $sqlFolder = __DIR__ . '/sql_migrations/';
+    $sqlFolder = __DIR__ . DIRECTORY_SEPARATOR . 'sql_migrations' . DIRECTORY_SEPARATOR;
     echo "Директория с sql: $sqlFolder \n";
-    $handleDir = opendir($sqlFolder);
-    while (false !== ($file = readdir($handleDir)))
-    {
-        if ($file != "." && $file != "..")
-        $allFiles[] = $sqlFolder.$file;
+
+    //Способ перебора с readdir
+    /*$handleDir = opendir($sqlFolder);
+        while (false !== ($file = readdir($handleDir)))
+        {
+            if ($file != "." && $file != "..")
+            $allFiles[] = $sqlFolder.$file;
+        }
+    */
+
+    //Способ перебора с RecursiveDirectoryIterator
+    $directoryIterator = new RecursiveDirectoryIterator($sqlFolder);
+    $iterator = new RecursiveIteratorIterator($directoryIterator);
+    $allFiles = [];
+    foreach ($iterator as $file) {
+        if ($file->getFilename() != "." && $file->getFilename() != "..")
+        $allFiles[] = $sqlFolder.$file->getFilename();
     }
+
     $query = sprintf("SHOW TABLES LIKE '%s'", TABLE_MIGRATIONS);
     $data = $con->query($query);
     if (!$data->rowCount()) {
