@@ -6,7 +6,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 use Source\App\{Router, Registry};
 
 $router = new Router();
-$config = require_once dirname(__DIR__) . '/config/config.php';
+$config = require dirname(__DIR__) . '/config/config.php';
 
 $dbObject = new PDO($config['db']['host'], $config['db']['user'], $config['db']['pass'], $config['db']['opts']);
 
