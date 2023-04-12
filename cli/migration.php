@@ -45,8 +45,9 @@ function getMigrationFiles(PDO $con): array
     $iterator = new RecursiveIteratorIterator($directoryIterator);
     $allFiles = [];
     foreach ($iterator as $file) {
-        if ($file->getFilename() != "." && $file->getFilename() != "..")
-        $allFiles[] = $sqlFolder.$file->getFilename();
+        if ($file->getFilename() != "." && $file->getFilename() != "..") {
+            $allFiles[] = $sqlFolder . $file->getFilename();
+        }
     }
 
     $query = sprintf("SHOW TABLES LIKE '%s'", TABLE_MIGRATIONS);
@@ -67,7 +68,6 @@ function getMigrationFiles(PDO $con): array
 function migrate($con, $file): void
 {
     $query = file_get_contents($file);
-    echo $file;
     $con->exec($query);
     $baseName = basename($file);
     $query = sprintf("INSERT INTO %s (name) VALUES('%s')", TABLE_MIGRATIONS, $baseName);
