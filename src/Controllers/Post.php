@@ -8,7 +8,7 @@ use Source\Models\{CategoryService, PostService, UserService};
 use Source\App\Registry;
 use Source\Views\PostView;
 
-class PostController extends Controller
+class Post extends Controller
 {
 
     public function __construct()
@@ -31,7 +31,7 @@ class PostController extends Controller
 
             $status = 'new';
         }
-        $view = (new PostView(Registry::get('domain'), $status, $categories, $users))->build();
+        $view = (new PostView(Registry::get('domain'), $status, $categories, $users))->buildHTML();
         $this->showOnMonitor($view);
     }
 }

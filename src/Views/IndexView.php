@@ -8,8 +8,8 @@ class IndexView extends View
 {
     public function __construct(protected string $domain, protected array $posts)
     {
-        $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
-        $this->templatePath = dirname(__DIR__) . '/Layouts/index.phtml';
+        parent::__construct();
+        $this->mainPath = dirname(__DIR__) . '/Layouts/index.phtml';
     }
 }
 

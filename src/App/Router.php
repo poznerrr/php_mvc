@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Source\App;
 
 use Source\Controllers\Controller;
+use Source\Controllers\{Index, NotFound};
 
 class Router
 {
@@ -15,16 +16,20 @@ class Router
 
     public function route(string $url): void
     {
-        $this->getController($url)->render();
+        $controllersFolder = "Source\\Controllers\\";
+        $controllerName = strtoupper(trim($url, '/'));
+        $this->makeController($controllerName, $controllersFolder)->render();
     }
 
-    private function getController(string $url): Controller
+    private function makeController(string $controllerName, string $controllersFolder): Controller
     {
-        return match ($url) {
-            '/' => IndexControllerFactory::createController(),
-            '/post' => PostControllerFactory::createController(),
-            default => NotFoundControllerFactory::createController(),
-        };
+        $controller = $controllersFolder . $controllerName;
+        if ($controller == $controllersFolder) {
+            return new Index();
+        } elseif (!class_exists($controller) || $controllerName == 'CONTROLLER') {
+            return new NotFound();
+        }
+        return new $controller();
     }
 
 

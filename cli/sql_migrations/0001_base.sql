@@ -1,7 +1,3 @@
-CREATE
-DATABASE mvc;
-USE
-mvc;
 CREATE TABLE users
 (
     user_id   INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,3 +24,9 @@ CREATE TABLE posts
         FOREIGN KEY (category_id) REFERENCES categories (category_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE migrations
+(
+    id      INT AUTO_INCREMENT PRIMARY KEY,
+    name    VARCHAR(50) NOT NULL,
+    created TIMESTAMP DEFAULT current_timestamp
+);

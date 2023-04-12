@@ -7,7 +7,7 @@ namespace Source\Controllers;
 use Source\App\Registry;
 use Source\Views\NotFoundView;
 
-class NotFoundController extends Controller
+class NotFound extends Controller
 {
     public function __construct()
     {
@@ -15,7 +15,7 @@ class NotFoundController extends Controller
 
     public function render(): void
     {
-        $view = (new NotFoundView(Registry::get('domain')))->build();
+        $view = (new NotFoundView(Registry::get('domain')))->buildHTML();
         $this->showOnMonitor($view);
     }
 }

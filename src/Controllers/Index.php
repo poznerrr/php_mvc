@@ -8,7 +8,7 @@ use Source\App\Registry;
 use Source\Models\PostService;
 use Source\Views\IndexView;
 
-class IndexController extends Controller
+class Index extends Controller
 {
     public array $posts;
     public PostService $postService;
@@ -24,7 +24,7 @@ class IndexController extends Controller
             $this->posts = $this->postService->deletePost((int)($_POST['id']));
         } else
             $this->posts = $this->postService->getAllPosts();
-        $view = (new IndexView(Registry::get('domain'),$this->posts))->build();
+        $view = (new IndexView(Registry::get('domain'),$this->posts))->buildHTML();
         $this->showOnMonitor($view);
     }
 
