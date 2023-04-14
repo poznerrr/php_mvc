@@ -19,25 +19,30 @@ class Router
         $controllersFolder = "Source\\Controllers\\";
         //если стартовая страница
         if (!isset($_GET['controller']) && !isset($_GET['action'])) {
-            $this->makeController('INDEX', $controllersFolder)->render();
+            $controllerName = 'index';
+            $actionName = 'render';
         } else {
-            $controllerName = strtoupper($_GET['controller']);
-            $controller = $this->makeController($controllerName, $controllersFolder);
-            if (isset($_GET['action']) && method_exists($controller, $_GET['action'])) {
-                $action = $_GET['action'];
-                $controller->$action();
+            if (!isset($_GET['controller']) || !isset($_GET['action'])) {
+                $controllerName = 'notfound';
+                $actionName = 'render';
             } else {
-                $this->makeController('NOTFOUND', $controllersFolder)->render();
+                $controllerName = $_GET['controller'];
+                $actionName = $_GET['action'];
             }
         }
+        $controller = $this->makeController($controllerName, $controllersFolder);
+        method_exists($controller, $actionName) ? $controller->$actionName() :
+            $this->makeController('notfound', $controllersFolder)->render();
     }
 
-    private function makeController(string $controllerName, string $controllersFolder): Controller
-    {
+    private function makeController(
+        string $controllerName,
+        string $controllersFolder
+    ): Controller {
         $controller = $controllersFolder . $controllerName;
         if ($controller == $controllersFolder) {
             return new Index();
-        } elseif (!class_exists($controller) || $controllerName == 'CONTROLLER') {
+        } elseif (!class_exists($controller) || $controllerName == 'controller') {
             return new NotFound();
         }
         return new $controller();

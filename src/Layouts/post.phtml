@@ -1,28 +1,30 @@
-<main>
-    <h2>Добавьте вашу новость:</h2>
-    <form method="post" action="/?controller=post&action=render">
-        <label class="form-label"> Заголовок:</label><br>
-        <input type="text" class="form-control" name="title" required="required"><br>
-        <label class="form-label"> Текст статьи:</label><br>
-        <textarea class="form-control" name="text" required="required" rows="5"></textarea><br>
-        <label class="form-label"> Автор:</label>
-        <select name="author" size="1" required class="form-select">
-            <option value="" selected disabled>Выберите автора</option>
-            <?php
-            foreach ($this->users as $user) {
-                echo "<option value='{$user->getId()}'>{$user->getName()}</option>>";
-            }
-            ?>
-        </select><br>
-        <label class="form-label"> Категория:</label>
-        <select class="form-select" name="category" size="1" required>
-            <option selected disabled value="">Выберите категорию</option>
-            <?php
-            foreach ($this->categories as $category) {
-                echo "<option value='{$category->getId()}'>{$category->getName()}</option>>";
-            }
-            ?>
-        </select><br>
-        <input type="submit" class="btn btn-primary" value="Отправить">
-    </form>
+<main class="container">
+    <div class="row">
+        <h2>Добавьте вашу новость:</h2>
+        <form method="post" action="/?controller=post&action=render">
+            <label class="form-label"> Заголовок:</label><br>
+            <input type="text" class="form-control" name="title" required="required"><br>
+            <label class="form-label"> Текст статьи:</label><br>
+            <textarea class="form-control" name="text" required="required" rows="5"></textarea><br>
+            <label class="form-label"> Автор:</label>
+            <select name="author" size="1" required class="form-select">
+                <option value="" selected disabled>Выберите автора</option>
+                <?php
+                foreach ($this->users as $user) {
+                    echo "<option value='{$user->getId()}'>{$user->getName()}</option>>";
+                }
+                ?>
+            </select><br>
+            <label class="form-label"> Категория:</label>
+            <select class="form-select" name="category" size="1" required>
+                <option selected disabled value="">Выберите категорию</option>
+                <?php
+                foreach ($this->categories as $category) {
+                    echo "<option value='{$category->getId()}'>{$category->getName()}</option>>";
+                }
+                ?>
+            </select><br>
+            <input type="submit" class="btn btn-primary" value="Отправить">
+        </form>
+    </div>
 </main>

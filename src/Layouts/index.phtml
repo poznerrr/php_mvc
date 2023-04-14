@@ -5,7 +5,7 @@
             echo "<p>Новостей пока нету.</p>";
         } else {
             foreach ($this->posts as $post) {
-                echo "<div class=' card center-block p-3'>";
+                echo "<div class='card center-block p-3'>";
                 echo "<div class='card-body'>";
                 echo "<h5 class='card-title'>" . htmlspecialchars($post->getTitle()) . "</h5>";
                 echo "<div class='card-text'>" . htmlspecialchars($post->getText()) . "</div>";

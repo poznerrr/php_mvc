@@ -41,14 +41,23 @@ function getMigrationFiles(PDO $con): array
     */
 
     //Способ перебора с RecursiveDirectoryIterator
-    $directoryIterator = new RecursiveDirectoryIterator($sqlFolder);
-    $iterator = new RecursiveIteratorIterator($directoryIterator);
+    /*$iterator = new RecursiveDirectoryIterator($sqlFolder);
+    $iterator = new RecursiveIteratorIterator($iterator);
     $allFiles = [];
     foreach ($iterator as $file) {
         if ($file->getFilename() != "." && $file->getFilename() != "..") {
             $allFiles[] = $sqlFolder . $file->getFilename();
         }
     }
+    */
+
+    //Способ с FileSystemIterator
+    $iterator = new FilesystemIterator($sqlFolder, FilesystemIterator::SKIP_DOTS);
+    $allFiles = [];
+    foreach ($iterator as $file) {
+        $allFiles[] = $sqlFolder . $file->getFilename();
+    }
+
 
     $query = sprintf("SHOW TABLES LIKE '%s'", TABLE_MIGRATIONS);
     $data = $con->query($query);
