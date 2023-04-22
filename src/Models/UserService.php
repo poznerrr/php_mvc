@@ -32,4 +32,25 @@ class UserService
         }
         return $users;
     }
+
+    public function deleteUserById(int $id): bool
+    {
+        $sql = "DELETE FROM users WHERE user_id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$id]);
+    }
+
+    public function createUser(string $name): bool
+    {
+        $sql = "INSERT INTO users VALUES (NULL, ?)";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$name]);
+    }
+
+    public function updateUserById(int $id, string $name): bool
+    {
+        $sql = "UPDATE users SET user_name = ? WHERE user_id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$name, $id]);
+    }
 }
