@@ -27,6 +27,20 @@
         }
         ?>
     </div>
+    <div class="row my-3 d-flex">
+        <div class="d-flex">
+            <p>Страница: </p>
+            <?php
+            for ($i = $this->paginatorPages['first']; $i <= $this->paginatorPages['last']; $i++) {
+                if ($i === $this->pageNumber) {
+                    echo "<span class='mx-2'>$i</span>";
+                } else {
+                    echo "<a class='link-primary mx-2 paginator-href' href='{$this->domain}/?controller=index&action=render&page=$i'>$i</a>";
+                }
+            }
+            ?>
+        </div>
+    </div>
 </main>
 
 

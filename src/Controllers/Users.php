@@ -20,7 +20,7 @@ class Users extends Controller
         $this->userService = UserService::getInstance();
     }
 
-    public function render(): void
+    public function render(array $uriOptions = null): void
     {
         $this->users = $this->userService->getAllUsers();
         $view = (new UsersView(Registry::get('domain'), $this->users))->buildHTML();

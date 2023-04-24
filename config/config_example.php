@@ -12,4 +12,6 @@ $db = ['host' => 'mysql:host=localhost:3306;dbname=mvc;charset=utf8mb4',
 ];
 $domain = 'http://mvc.loc:8000';
 
-return ['db' => $db, 'domain' => $domain];
+$pageNewsNumber = 10;
+
+return ['db' => $db, 'domain' => $domain, 'pageNewsNumber' => $pageNewsNumber];

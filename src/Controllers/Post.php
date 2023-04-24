@@ -15,7 +15,7 @@ class Post extends Controller
     {
     }
 
-    public function render(): void
+    public function render(array $uriOptions = null): void
     {
         $categories = null;
         $users = null;

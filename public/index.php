@@ -12,6 +12,7 @@ $dbObject = new PDO($config['db']['host'], $config['db']['user'], $config['db'][
 
 Registry::set('dbObject', $dbObject);
 Registry::set('domain', $config['domain']);
+Registry::set('pageNewsNumber', $config['pageNewsNumber']);
 
 $router->route();
 

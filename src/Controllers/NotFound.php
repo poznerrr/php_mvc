@@ -13,7 +13,7 @@ class NotFound extends Controller
     {
     }
 
-    public function render(): void
+    public function render(array $uriOptions = null): void
     {
         $view = (new NotFoundView(Registry::get('domain')))->buildHTML();
         $this->showOnMonitor($view);

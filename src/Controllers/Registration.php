@@ -17,7 +17,7 @@ class Registration extends Controller
         $this->userService = UserService::getInstance();
     }
 
-    public function render(): void
+    public function render(array $uriOptions = null): void
     {
         $view = (new RegistrationView(Registry::get('domain'), 'new'))->buildHTML();
         $this->showOnMonitor($view);

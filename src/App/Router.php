@@ -31,8 +31,9 @@ class Router
             }
         }
         $controller = $this->makeController($controllerName, $controllersFolder);
-        method_exists($controller, $actionName) ? $controller->$actionName() :
-            $this->makeController('notfound', $controllersFolder)->render();
+        parse_str($_SERVER['QUERY_STRING'], $uriOptions);
+        method_exists($controller, $actionName) ? $controller->$actionName($uriOptions) :
+            $this->makeController('notfound', $controllersFolder)->render($uriOptions);
     }
 
     private function makeController(
