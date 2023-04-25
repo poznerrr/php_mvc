@@ -14,5 +14,4 @@ function toggleEditModal(object) {
         inputNameEdit.value = object.closest('form').elements.name.value;
         inputIdEdit.value = object.closest('form').elements.id.value;
     }
-
 }

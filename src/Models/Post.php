@@ -10,8 +10,8 @@ class Post
     private string $title;
     private string $date;
     private string $text;
-    private string $category;
-    private string $author;
+    private Category $category;
+    private User $author;
 
     public function getId(): int
     {
@@ -53,22 +53,22 @@ class Post
         $this->text = $text;
     }
 
-    public function getAuthor(): string
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function setAuthor(string $author): void
+    public function setAuthor(User $author): void
     {
         $this->author = $author;
     }
 
-    public function getCategory(): string
+    public function getCategory(): Category
     {
         return $this->category;
     }
 
-    public function setCategory(string $category): void
+    public function setCategory(Category $category): void
     {
         $this->category = $category;
     }

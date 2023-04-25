@@ -32,4 +32,25 @@ class CategoryService
         }
         return $categories;
     }
+
+    public function deleteCategoryById(int $id): bool
+    {
+        $sql = "DELETE FROM categories WHERE category_id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$id]);
+    }
+
+    public function createCategory(string $name): bool
+    {
+        $sql = "INSERT INTO categories VALUES (NULL, ?)";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$name]);
+    }
+
+    public function updateCategoryById(int $id, string $name): bool
+    {
+        $sql = "UPDATE categories SET category_name = ? WHERE category_id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$name, $id]);
+    }
 }

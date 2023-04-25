@@ -27,8 +27,8 @@
                             Admin Panel
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item disabled" href="#">News</a></li>
-                            <li><a class="dropdown-item disabled" href="#">Categories</a></li>
+                            <li><a class="dropdown-item" href="<?="{$this->domain}/?controller=posts&action=render"?>">Posts</a></li>
+                            <li><a class="dropdown-item" href="<?="{$this->domain}/?controller=categories&action=render"?>">Categories</a></li>
                             <li><a class="dropdown-item" href="<?="{$this->domain}/?controller=users&action=render"?>">Users</a></li>
                         </ul>
                     </div>
