@@ -16,9 +16,17 @@ abstract class View
     protected string $footerPath;
     protected string $mainPath = '';
 
+    protected bool|null $isAuth;
+    protected string|null $userLogin;
+    protected int|null $userId;
+
 
     public function __construct()
     {
+        $this->isAuth = $_SESSION['auth']??null;
+        $this->userLogin = $_SESSION['login']??null;
+        $this->userId = $_SESSION['id']??null;
+
         $this->headPath = dirname(__DIR__) . '/Layouts/head.phtml';
         $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';
         $this->footerPath = dirname(__DIR__) . '/Layouts/footer.phtml';
