@@ -8,13 +8,16 @@
                 echo "<div class='card center-block p-3 my-2'>";
                 echo "<div class='card-body'>";
                 echo "<h5 class='card-title text-center'>" . $post->getTitle() . "</h5>";
-                echo "<div class='card-text'>" . $post->getText() . "</div>";
+                echo "<div class='card-text'>" . mb_strimwidth( (strip_tags($post->getText(),['p','br'])), 0, 200, '...') . "</div>";
                 echo "<ul class='list group list-group-flush mt-3 h6'>";
-                echo "<li class='list-group-item'><b>Категория: </b><i>" . htmlspecialchars($post->getCategory()->getName()) . "</i></li>";
-                echo "<li class='list-group-item'><b>Автор: </b><i>" . htmlspecialchars($post->getAuthor()->getName()) . "</i></li>";
+                echo "<li class='list-group-item'><b>Категория: </b><i>" . htmlspecialchars(
+                        $post->getCategory()->getName()
+                    ) . "</i></li>";
+
                 echo "<li class='list-group-item'><b>Дата: </b><i>" . htmlspecialchars($post->getDate()) . "</i></li>";
-                echo "</ul>";
-                echo "</div></div>";
+                echo "</ul></div>";
+                echo "<a class='btn btn-primary' href='{$this->domain}/?controller=news&action=render&postId={$post->getId()}'>Читать полностью</a>";
+                echo "</div>";
             }
         }
         ?>

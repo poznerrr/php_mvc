@@ -31,7 +31,11 @@ class Router
             }
         }
         $controller = $this->makeController($controllerName, $controllersFolder);
+
         parse_str($_SERVER['QUERY_STRING'], $uriOptions);
+        /*foreach ($_POST as $key =>$value) {
+            $uriOptions[$key] = $value;
+        }*/
         method_exists($controller, $actionName) ? $controller->$actionName($uriOptions) :
             $this->makeController('notfound', $controllersFolder)->render($uriOptions);
     }

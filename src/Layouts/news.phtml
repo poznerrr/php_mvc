@@ -1,0 +1,28 @@
+<main class="container">
+    <div class="row mt-5">
+        <?php
+        if (!$this->post) {
+            echo "<p>Новостей пока нету.</p>";
+        } else {
+            echo "<div class='card center-block p-3 my-2'>";
+            echo "<div class='card-body'>";
+            echo "<h5 class='card-title text-center'>" . $this->post->getTitle() . "</h5>";
+            echo "<div class='card-text'>" . $this->post->getText() . "</div>";
+            echo "<ul class='list group list-group-flush mt-3 h6'>";
+            echo "<li class='list-group-item'><b>Категория: </b><i>" . htmlspecialchars(
+                    $this->post->getCategory()->getName()
+                ) . "</i></li>";
+            echo "<li class='list-group-item'><b>Автор: </b><i>" . htmlspecialchars(
+                    $this->post->getAuthor()->getName()
+                ) . "</i></li>";
+            echo "<li class='list-group-item'><b>Дата: </b><i>" . htmlspecialchars(
+                    $this->post->getDate()
+                ) . "</i></li>";
+            echo "</ul>";
+            echo "</div></div>";
+        }
+        ?>
+    </div>
+</main>
+
+

@@ -21,9 +21,6 @@ class Posts extends Controller
 
     public function render(array $uriOptions = null): void
     {
-        if (isset($_POST['delete']) && isset($_POST['id'])) {
-            $this->postService->deletePost(($_POST['id']));
-        }
         $pageNumber = (int)($uriOptions['page'] ?? 1);
         $firstNews = ($pageNumber - 1) * Registry::get('pageNewsNumber');
         $this->posts = $this->postService->getPostsBetween($firstNews, Registry::get('pageNewsNumber'));
