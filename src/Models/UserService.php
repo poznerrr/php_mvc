@@ -63,4 +63,17 @@ class UserService
             return null;
         }
     }
+
+    public function getUserById(string $id): ?User
+    {
+        $sql = "SELECT * FROM users WHERE user_id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        $res = $stmt->fetch();
+        if (!empty($res)) {
+            return new User($res['user_id'], $res['user_name'], $res['pass']);
+        } else {
+            return null;
+        }
+    }
 }

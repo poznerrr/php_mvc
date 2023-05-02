@@ -12,7 +12,8 @@
                                    href=<?= "{$this->domain}/?controller=index&action=renderDefault" ?>>Home</a>
                             </div>
                             <div>
-                                <a class="nav-link" href='<?= "{$this->domain}/?controller=post&action=renderDefault" ?>'>Add
+                                <a class="nav-link"
+                                   href='<?= "{$this->domain}/?controller=post&action=renderDefault" ?>'>Add
                                     news</a>
                             </div>
                         </div>
@@ -29,12 +30,14 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/?controller=posts&action=renderDefault" ?>">Posts</a></li>
+                                       href="<?= "{$this->domain}/?controller=posts&action=renderDefault" ?>">Posts</a>
+                                </li>
                                 <li><a class="dropdown-item"
                                        href="<?= "{$this->domain}/?controller=categories&action=renderDefault" ?>">Categories</a>
                                 </li>
                                 <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/?controller=users&action=renderDefault" ?>">Users</a></li>
+                                       href="<?= "{$this->domain}/?controller=users&action=renderDefault" ?>">Users</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -42,7 +45,7 @@
                 <div class="col-sm-4 d-flex justify-content-end">
                     <div class="btn-group me-2">
                         <?php
-                        if (!$this->isAuth) {
+                        if (!$this->userName) {
                             echo <<< _END
                         <div class="dropdown">
                         <button class="btn btn dropdown-toggle fw-bold" type="button"
@@ -56,7 +59,7 @@
                         </div>
                         _END;
                         } else {
-                            echo "<div><div>$this->userLogin</div><a href='/?controller=authorization&action=logout'>Log out</a></div>";
+                            echo "<div><div>$this->userName</div><a href='/?controller=authorization&action=logout'>Log out</a></div>";
                         }
                         ?>
 

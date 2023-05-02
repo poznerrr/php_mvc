@@ -34,12 +34,12 @@ class Authorization extends Controller
             $keyStatus = 'notFoundUser';
         } else {
             $password = $_POST['user-password'];
-            if (password_verify($password, $desiredUser->getPassword())){
-            $keyStatus = 'success';
-            $_SESSION['auth'] = true;
-            $_SESSION['id'] = $desiredUser->getId();
-            $_SESSION['login'] = $desiredUser->getName();
-        } else {
+            if (password_verify($password, $desiredUser->getPassword())) {
+                $keyStatus = 'success';
+                setcookie('id', "{$desiredUser->getId()}", time() + 3600 * 24);
+                setcookie('password', "{$desiredUser->getPassword()}", time() + 3600 * 24);
+
+            } else {
                 $keyStatus = 'wrongData';
             }
         }
@@ -50,9 +50,9 @@ class Authorization extends Controller
 
     public function logout(): void
     {
-        unset($_SESSION['auth'], $_SESSION['id'], $_SESSION['login']);
-        $uriOptions['keyStatus'] = 'new';
-        $this->renderDefault($uriOptions);
+        setcookie('id', '', time());
+        setcookie('password', '', time());
+        header("Location: /?controller=Authorization&action=renderDefault");
     }
 
 }

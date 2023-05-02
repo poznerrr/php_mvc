@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Source\Views;
 
+use Source\App\Registry;
+
 abstract class View
 {
     protected string $header;
@@ -16,16 +18,14 @@ abstract class View
     protected string $footerPath;
     protected string $mainPath = '';
 
-    protected bool $isAuth;
-    protected ?string $userLogin;
+    protected ?string $userName;
     protected ?int $userId;
 
 
     public function __construct()
     {
-        $this->isAuth = $_SESSION['auth']??false;
-        $this->userLogin = $_SESSION['login']??null;
-        $this->userId = $_SESSION['id']??null;
+        $this->userName = Registry::get('userName') ?? null;
+        $this->userId = Registry::get('userId') ?? null;
 
         $this->headPath = dirname(__DIR__) . '/Layouts/head.phtml';
         $this->headerPath = dirname(__DIR__) . '/Layouts/header.phtml';

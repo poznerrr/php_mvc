@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-session_start();
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use Source\App\{Router, Registry};
+use Source\App\{Router, Registry, AuthorizationChecker};
 
 $router = new Router();
 $config = require dirname(__DIR__) . '/config/config.php';
@@ -15,6 +14,8 @@ $dbObject = new PDO($config['db']['host'], $config['db']['user'], $config['db'][
 Registry::set('dbObject', $dbObject);
 Registry::set('domain', $config['domain']);
 Registry::set('pageNewsNumber', $config['pageNewsNumber']);
+
+AuthorizationChecker::checkAuthorization();
 
 $router->route();
 
