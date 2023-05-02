@@ -34,13 +34,12 @@ class Authorization extends Controller
             $keyStatus = 'notFoundUser';
         } else {
             $password = $_POST['user-password'];
-            $saltedPassword = md5($password . $desiredUser->getSalt());
-            if ($saltedPassword === $desiredUser->getPassword()) {
-                $keyStatus = 'success';
-                $_SESSION['auth'] = true;
-                $_SESSION['id'] = $desiredUser->getId();
-                $_SESSION['login'] = $desiredUser->getName();
-            } else {
+            if (password_verify($password, $desiredUser->getPassword())){
+            $keyStatus = 'success';
+            $_SESSION['auth'] = true;
+            $_SESSION['id'] = $desiredUser->getId();
+            $_SESSION['login'] = $desiredUser->getName();
+        } else {
                 $keyStatus = 'wrongData';
             }
         }
@@ -51,9 +50,7 @@ class Authorization extends Controller
 
     public function logout(): void
     {
-        unset($_SESSION['auth']);
-        unset($_SESSION['id']);
-        unset($_SESSION['login']);
+        unset($_SESSION['auth'], $_SESSION['id'], $_SESSION['login']);
         $uriOptions['keyStatus'] = 'new';
         $this->renderDefault($uriOptions);
     }

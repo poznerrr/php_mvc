@@ -24,10 +24,7 @@ class UserService
             FROM users";
         $result = $this->db->query($query);
         while ($row = $result->fetch()) {
-            $user = new User();
-            $user->setId($row['user_id']);
-            $user->setName($row['user_name']);
-
+            $user = new User($row['user_id'], $row['user_name']);
             $users[] = $user;
         }
         return $users;
@@ -40,11 +37,11 @@ class UserService
         return $stmt->execute([$id]);
     }
 
-    public function createUser(string $name, string $pass, string $salt): bool
+    public function createUser(string $name, string $pass): bool
     {
-        $sql = "INSERT INTO users VALUES (NULL, ?, ?, ?)";
+        $sql = "INSERT INTO users VALUES (NULL, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([$name, $pass, $salt]);
+        return $stmt->execute([$name, $pass]);
     }
 
     public function updateUserById(int $id, string $name): bool
@@ -61,7 +58,7 @@ class UserService
         $stmt->execute([$name]);
         $res = $stmt->fetch();
         if (!empty($res)) {
-            return new User($res['user_id'], $res['user_name'], $res['pass'], $res['salt']);
+            return new User($res['user_id'], $res['user_name'], $res['pass']);
         } else {
             return null;
         }

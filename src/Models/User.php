@@ -9,21 +9,14 @@ class User
     private int $id;
     private string $name;
     private string $password;
-    private string $salt;
 
-    public function __construct(int|null $id = null, string|null $name = null, string|null $password = null, string|null $salt = null,)
+    public function __construct(int $id, string $name, ?string $password = null)
     {
-        if (isset($id)) {
-            $this->id = $id;
-        }
-        if (isset($name)) {
-            $this->name = $name;
-        }
-        if (isset($password)) {
+
+        $this->id = $id;
+        $this->name = $name;
+        if ($password !== null) {
             $this->password = $password;
-        }
-        if (isset($salt)) {
-            $this->salt = $salt;
         }
     }
 
@@ -52,8 +45,4 @@ class User
         return $this->password;
     }
 
-    public function getSalt(): string
-    {
-        return $this->salt;
-    }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Source\Controllers;
 
 use Source\App\Registry;
-use Source\App\Salt;
 use Source\Models\UserService;
 use Source\Views\RegistrationView;
 
@@ -30,9 +29,8 @@ class Registration extends Controller
     public function register(): void
     {
         if (isset($_POST["user-name"]) && isset($_POST["user-password"])) {
-            $salt = Salt::generateSalt();
-            $saltedPassword = md5($_POST['user-password'] . $salt);
-            $this->userService->createUser($_POST['user-name'], $saltedPassword, $salt);
+            $saltedPassword = password_hash($_POST['user-password'], PASSWORD_BCRYPT);
+            $this->userService->createUser($_POST['user-name'], $saltedPassword);
             $view = (new RegistrationView(Registry::get('domain'), 'success'))->buildHTML();
             $this->showOnMonitor($view);
         }

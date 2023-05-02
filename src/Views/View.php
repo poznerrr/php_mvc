@@ -16,14 +16,14 @@ abstract class View
     protected string $footerPath;
     protected string $mainPath = '';
 
-    protected bool|null $isAuth;
-    protected string|null $userLogin;
-    protected int|null $userId;
+    protected bool $isAuth;
+    protected ?string $userLogin;
+    protected ?int $userId;
 
 
     public function __construct()
     {
-        $this->isAuth = $_SESSION['auth']??null;
+        $this->isAuth = $_SESSION['auth']??false;
         $this->userLogin = $_SESSION['login']??null;
         $this->userId = $_SESSION['id']??null;
 
