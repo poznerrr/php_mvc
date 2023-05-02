@@ -15,7 +15,7 @@ class Post extends Controller
     {
     }
 
-    public function render(array $uriOptions = null): void
+    public function renderDefault(array $uriOptions = null): void
     {
             $status = 'new';
             $categoryService = CategoryService::getInstance();

@@ -17,13 +17,14 @@ class Authorization extends Controller
         $this->userService = UserService::getInstance();
     }
 
-    public function render(array $uriOptions = null): void
+    public function renderDefault(array $uriOptions = null): void
     {
         if (!isset($uriOptions['keyStatus'])) {
             $uriOptions['keyStatus'] = 'new';
         }
         $view = (new AuthorizationView(Registry::get('domain'), $uriOptions['keyStatus']))->buildHTML();
         $this->showOnMonitor($view);
+
     }
 
     public function authorize(): void
@@ -45,7 +46,7 @@ class Authorization extends Controller
         }
 
         $uriOptions['keyStatus'] = $keyStatus;
-        $this->render($uriOptions);
+        $this->renderDefault($uriOptions);
     }
 
     public function logout(): void
@@ -54,7 +55,7 @@ class Authorization extends Controller
         unset($_SESSION['id']);
         unset($_SESSION['login']);
         $uriOptions['keyStatus'] = 'new';
-        $this->render($uriOptions);
+        $this->renderDefault($uriOptions);
     }
 
 }

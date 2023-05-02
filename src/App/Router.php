@@ -20,11 +20,11 @@ class Router
         //если стартовая страница
         if (!isset($_GET['controller']) && !isset($_GET['action'])) {
             $controllerName = 'index';
-            $actionName = 'render';
+            $actionName = 'renderDefault';
         } else {
             if (!isset($_GET['controller']) || !isset($_GET['action'])) {
                 $controllerName = 'notfound';
-                $actionName = 'render';
+                $actionName = 'renderDefault';
             } else {
                 $controllerName = $_GET['controller'];
                 $actionName = $_GET['action'];

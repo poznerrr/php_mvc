@@ -18,7 +18,7 @@ class News extends Controller
         $this->postService = PostService::getInstance();
     }
 
-    public function render(array $uriOptions): void
+    public function renderDefault(array $uriOptions): void
     {
         $postId = $uriOptions['postId'];
         $this->post = $this->postService->getPostById($postId);

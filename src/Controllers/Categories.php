@@ -19,7 +19,7 @@ class Categories extends Controller
         $this->categoryService = CategoryService::getInstance();
     }
 
-    public function render(array $uriOptions = null): void
+    public function renderDefault(array $uriOptions = null): void
     {
         $this->categories = $this->categoryService->getAllCategories();
         $view = (new CategoryView(Registry::get('domain'), $this->categories))->buildHTML();
@@ -29,21 +29,21 @@ class Categories extends Controller
     public function delete(): void
     {
         if ($this->categoryService->deleteCategoryById((int)$_POST['id'])) {
-            $this->render();
+            $this->renderDefault();
         }
     }
 
     public function updateCategory(): void
     {
         if ($this->categoryService->updateCategoryById((int)$_POST['id'], $_POST['name'])) {
-            $this->render();
+            $this->renderDefault();
         }
     }
 
     public function createCategory(): void
     {
         if ($this->categoryService->createCategory($_POST['name'])) {
-            $this->render();
+            $this->renderDefault();
         }
     }
 

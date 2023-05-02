@@ -18,7 +18,7 @@ class Registration extends Controller
         $this->userService = UserService::getInstance();
     }
 
-    public function render(array $uriOptions = null): void
+    public function renderDefault(array $uriOptions = null): void
     {
         if (!isset($uriOptions['keyStatus'])) {
             $uriOptions['keyStatus'] = 'new';

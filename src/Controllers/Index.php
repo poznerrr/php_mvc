@@ -18,7 +18,7 @@ class Index extends Controller
         $this->postService = PostService::getInstance();
     }
 
-    public function render(array $uriOptions = null): void
+    public function renderDefault(array $uriOptions = null): void
     {
         $pageNumber =(int)($uriOptions['page'] ?? 1);
         $firstNews = ($pageNumber - 1) * Registry::get('pageNewsNumber');

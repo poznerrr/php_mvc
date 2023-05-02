@@ -19,7 +19,7 @@ class Posts extends Controller
         $this->postService = PostService::getInstance();
     }
 
-    public function render(array $uriOptions = null): void
+    public function renderDefault(array $uriOptions = null): void
     {
         $pageNumber = (int)($uriOptions['page'] ?? 1);
         $firstNews = ($pageNumber - 1) * Registry::get('pageNewsNumber');
@@ -36,13 +36,13 @@ class Posts extends Controller
     public function deletePost(): void
     {
         $this->postService->deletePost(($_POST['id']));
-        $this->render();
+        $this->renderDefault();
     }
 
     public function updatePost(): void
     {
         if ($this->postService->updatePost(($_POST['title']), $_POST['text'], $_POST['author'], $_POST['category'], $_POST['id'])) {
-            $this->render();
+            $this->renderDefault();
         }
     }
 

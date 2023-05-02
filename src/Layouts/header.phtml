@@ -9,10 +9,10 @@
                             <a class="navbar-brand" href="#">BigSportNews</a>
                             <div>
                                 <a class="nav-link" aria-current="page"
-                                   href=<?= "{$this->domain}/?controller=index&action=render" ?>>Home</a>
+                                   href=<?= "{$this->domain}/?controller=index&action=renderDefault" ?>>Home</a>
                             </div>
                             <div>
-                                <a class="nav-link" href='<?= "{$this->domain}/?controller=post&action=render" ?>'>Add
+                                <a class="nav-link" href='<?= "{$this->domain}/?controller=post&action=renderDefault" ?>'>Add
                                     news</a>
                             </div>
                         </div>
@@ -29,12 +29,12 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/?controller=posts&action=render" ?>">Posts</a></li>
+                                       href="<?= "{$this->domain}/?controller=posts&action=renderDefault" ?>">Posts</a></li>
                                 <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/?controller=categories&action=render" ?>">Categories</a>
+                                       href="<?= "{$this->domain}/?controller=categories&action=renderDefault" ?>">Categories</a>
                                 </li>
                                 <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/?controller=users&action=render" ?>">Users</a></li>
+                                       href="<?= "{$this->domain}/?controller=users&action=renderDefault" ?>">Users</a></li>
                             </ul>
                         </div>
                     </div>
@@ -50,8 +50,8 @@
                             Account
                         </button>
                             <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/?controller=authorization&action=render">Sign in</a></li>
-                            <li><a class="dropdown-item" href="/?controller=registration&action=render">Sign up</a></li>
+                            <li><a class="dropdown-item" href="/?controller=authorization&action=renderDefault">Sign in</a></li>
+                            <li><a class="dropdown-item" href="/?controller=registration&action=renderDefault">Sign up</a></li>
                         </ul>
                         </div>
                         _END;

@@ -16,7 +16,7 @@
 
                 echo "<li class='list-group-item'><b>Дата: </b><i>" . htmlspecialchars($post->getDate()) . "</i></li>";
                 echo "</ul></div>";
-                echo "<a class='btn btn-primary' href='{$this->domain}/?controller=news&action=render&postId={$post->getId()}'>Читать полностью</a>";
+                echo "<a class='btn btn-primary' href='{$this->domain}/?controller=news&action=renderDefault&postId={$post->getId()}'>Читать полностью</a>";
                 echo "</div>";
             }
         }
@@ -30,7 +30,7 @@
                 if ($i === $this->pageNumber) {
                     echo "<span class='mx-2'>$i</span>";
                 } else {
-                    echo "<a class='link-primary mx-2 paginator-href' href='{$this->domain}/?controller=index&action=render&page=$i'>$i</a>";
+                    echo "<a class='link-primary mx-2 paginator-href' href='{$this->domain}/?controller=index&action=renderDefault&page=$i'>$i</a>";
                 }
             }
             ?>

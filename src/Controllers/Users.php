@@ -20,7 +20,7 @@ class Users extends Controller
         $this->userService = UserService::getInstance();
     }
 
-    public function render(array $uriOptions = null): void
+    public function renderDefault(array $uriOptions = null): void
     {
         $this->users = $this->userService->getAllUsers();
         $view = (new UsersView(Registry::get('domain'), $this->users))->buildHTML();
@@ -30,14 +30,14 @@ class Users extends Controller
     public function delete(): void
     {
         if ($this->userService->deleteUserById((int)$_POST['id'])) {
-            $this->render();
+            $this->renderDefault();
         }
     }
 
     public function updateUser(): void
     {
         if ($this->userService->updateUserById((int)$_POST['id'], $_POST['name'])) {
-            $this->render();
+            $this->renderDefault();
         }
     }
 
