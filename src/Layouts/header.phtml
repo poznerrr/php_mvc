@@ -17,9 +17,7 @@
                                     news</a>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
                 <div class="col-sm-4 d-flex justify-content-center">
                     <div class="btn-group me-2">
@@ -44,29 +42,27 @@
                 </div>
                 <div class="col-sm-4 d-flex justify-content-end">
                     <div class="btn-group me-2">
-                        <?php
-                        if (!$this->userName) {
-                            echo <<< _END
-                        <div class="dropdown">
-                        <button class="btn btn dropdown-toggle fw-bold" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Account
-                        </button>
-                            <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/?controller=authorization&action=renderDefault">Sign in</a></li>
-                            <li><a class="dropdown-item" href="/?controller=registration&action=renderDefault">Sign up</a></li>
-                        </ul>
-                        </div>
-                        _END;
-                        } else {
-                            echo "<div><div>$this->userName</div><a href='/?controller=authorization&action=logout'>Log out</a></div>";
-                        }
-                        ?>
-
+                        <?php if (!$this->userName) { ?>
+                            <div class="dropdown">
+                                <button class="btn btn dropdown-toggle fw-bold" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Account
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/?controller=authorization&action=renderDefault">Sign
+                                            in</a></li>
+                                    <li><a class="dropdown-item" href="/?controller=registration&action=renderDefault">Sign
+                                            up</a></li>
+                                </ul>
+                            </div>
+                        <?php } else { ?>
+                            <div>
+                                <div><?= $this->userName ?></div>
+                                <a href='/?controller=authorization&action=logout'>Log out</a></div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
