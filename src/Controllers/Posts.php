@@ -36,13 +36,13 @@ class Posts extends Controller
     public function deletePost(): void
     {
         $this->postService->deletePost(($_POST['id']));
-        $this->renderDefault();
+        header("Location: /?controller=Posts&action=renderDefault");
     }
 
     public function updatePost(): void
     {
         if ($this->postService->updatePost(($_POST['title']), $_POST['text'], $_POST['author'], $_POST['category'], $_POST['id'])) {
-            $this->renderDefault();
+            header("Location: /?controller=Posts&action=renderDefault");
         }
     }
 

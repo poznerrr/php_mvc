@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-$db = ['host' => 'mysql:host=localhost:3306;dbname=mvc;charset=utf8mb4',
+$db = ['host' => 'mysql:host=mariadb:3306;dbname=mvc;charset=utf8mb4',
     'user' => 'root',
     'pass' => 'mysql',
     'opts' => [
@@ -10,7 +10,7 @@ $db = ['host' => 'mysql:host=localhost:3306;dbname=mvc;charset=utf8mb4',
         PDO::ATTR_EMULATE_PREPARES => false,
     ]
 ];
-$domain = 'http://mvc.loc:8000';
+$domain = 'http://localhost';
 
 $pageNewsNumber = 10;
 

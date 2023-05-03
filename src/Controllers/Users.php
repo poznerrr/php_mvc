@@ -30,14 +30,14 @@ class Users extends Controller
     public function delete(): void
     {
         if ($this->userService->deleteUserById((int)$_POST['id'])) {
-            $this->renderDefault();
+            header("Location: /?controller=Users&action=renderDefault");
         }
     }
 
     public function updateUser(): void
     {
         if ($this->userService->updateUserById((int)$_POST['id'], $_POST['name'])) {
-            $this->renderDefault();
+            header("Location: /?controller=Users&action=renderDefault");
         }
     }
 

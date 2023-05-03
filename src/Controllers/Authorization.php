@@ -38,14 +38,11 @@ class Authorization extends Controller
                 $keyStatus = 'success';
                 setcookie('id', "{$desiredUser->getId()}", time() + 3600 * 24);
                 setcookie('password', "{$desiredUser->getPassword()}", time() + 3600 * 24);
-
             } else {
                 $keyStatus = 'wrongData';
             }
         }
-
-        $uriOptions['keyStatus'] = $keyStatus;
-        $this->renderDefault($uriOptions);
+        header("Location: /?controller=Authorization&action=renderDefault&keyStatus=$keyStatus");
     }
 
     public function logout(): void

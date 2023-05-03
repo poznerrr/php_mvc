@@ -29,21 +29,21 @@ class Categories extends Controller
     public function delete(): void
     {
         if ($this->categoryService->deleteCategoryById((int)$_POST['id'])) {
-            $this->renderDefault();
+            header("Location: /?controller=Categories&action=renderDefault");
         }
     }
 
     public function updateCategory(): void
     {
         if ($this->categoryService->updateCategoryById((int)$_POST['id'], $_POST['name'])) {
-            $this->renderDefault();
+            header("Location: /?controller=Categories&action=renderDefault");
         }
     }
 
     public function createCategory(): void
     {
         if ($this->categoryService->createCategory($_POST['name'])) {
-            $this->renderDefault();
+            header("Location: /?controller=Categories&action=renderDefault");
         }
     }
 
