@@ -11,15 +11,18 @@
                                 <a class="nav-link" aria-current="page"
                                    href=<?= "{$this->domain}/?controller=index&action=renderDefault" ?>>Home</a>
                             </div>
+                            <?php if ($this->userName) { ?>
                             <div>
                                 <a class="nav-link"
                                    href='<?= "{$this->domain}/?controller=post&action=renderDefault" ?>'>Add
                                     news</a>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4 d-flex justify-content-center">
+                    <?php if ($this->userName) { ?>
                     <div class="btn-group me-2">
                         <div class="dropdown">
                             <button class="btn btn-sm dropdown-toggle fw-bold" type="button"
@@ -39,6 +42,7 @@
                             </ul>
                         </div>
                     </div>
+                    <?php } ?>
                 </div>
                 <div class="col-sm-4 d-flex justify-content-end">
                     <div class="btn-group me-2">
