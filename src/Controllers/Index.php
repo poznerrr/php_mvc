@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Source\Controllers;
 
-use Source\App\{Registry, Paginator};
+use Source\App\{Registry, Paginator, Request};
 use Source\Models\PostService;
 use Source\Views\IndexView;
 
@@ -18,9 +18,9 @@ class Index extends Controller
         $this->postService = PostService::getInstance();
     }
 
-    public function renderDefault(array $uriOptions = null): void
+    public function renderDefault(Request $req): void
     {
-        $pageNumber =(int)($uriOptions['page'] ?? 1);
+        $pageNumber = $req->getIntParam('page') ?? 1;
         $firstNews = ($pageNumber - 1) * Registry::get('pageNewsNumber');
         $this->posts = $this->postService->getPostsBetween($firstNews, Registry::get('pageNewsNumber'));
         $paginatorPages = Paginator::getPages($pageNumber);

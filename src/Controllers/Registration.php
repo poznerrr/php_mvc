@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Source\Controllers;
 
-use Source\App\Registry;
+use Source\App\{Registry, Request};
 use Source\Models\UserService;
 use Source\Views\RegistrationView;
 
@@ -17,12 +17,10 @@ class Registration extends Controller
         $this->userService = UserService::getInstance();
     }
 
-    public function renderDefault(array $uriOptions = null): void
+    public function renderDefault(Request $req): void
     {
-        if (!isset($uriOptions['keyStatus'])) {
-            $uriOptions['keyStatus'] = 'new';
-        }
-        $view = (new RegistrationView(Registry::get('domain'), $uriOptions['keyStatus']))->buildHTML();
+        $keyStatus = $req->getParam('keyStatus') ?? 'new';
+        $view = (new RegistrationView(Registry::get('domain'), $keyStatus))->buildHTML();
         $this->showOnMonitor($view);
     }
 

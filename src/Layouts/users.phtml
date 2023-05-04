@@ -10,7 +10,7 @@
                     <div class='card-body'>
                         <div class='card-text'> ID: <?= htmlspecialchars($user->getId()) ?></div>
                         <div class='card-text'>Name: <?= htmlspecialchars($user->getName()) ?></div>
-                        <form action='/?controller=users&action=delete' method='post'>
+                        <form action='/users/delete' method='post'>
                             <input type="hidden" name="delete" value="yes">
                             <input type="hidden" name="id" value="<?= $user->getId() ?>">
                             <input type="hidden" name="name" value="<?= $user->getName() ?>">
@@ -22,7 +22,7 @@
             <?php } ?>
             <div id="edit-modal" class="modal-wrapper hidden">
                 <div class="form-wrapper">
-                    <form action='/?controller=users&action=updateUser' method='post'>
+                    <form action='/users/updateUser' method='post'>
                         <input type="input" id="input-name-edit" name="name" value="">
                         <input type="hidden" name="edit" value="yes">
                         <input type="hidden" id="input-id-edit" name="id" value="">

@@ -14,4 +14,6 @@ $domain = 'http://localhost';
 
 $pageNewsNumber = 10;
 
-return ['db' => $db, 'domain' => $domain, 'pageNewsNumber' => $pageNewsNumber];
+$controllersFolder = "Source\\Controllers\\";
+
+return ['db' => $db, 'domain' => $domain, 'pageNewsNumber' => $pageNewsNumber, 'controllersFolder' => $controllersFolder];

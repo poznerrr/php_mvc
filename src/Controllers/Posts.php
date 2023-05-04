@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Source\Controllers;
 
-use Source\App\{Paginator, Registry};
+use Source\App\{Paginator, Registry, Request};
 use Source\Models\{CategoryService, PostService, UserService};
 use Source\Views\PostsView;
 
@@ -19,9 +19,10 @@ class Posts extends Controller
         $this->postService = PostService::getInstance();
     }
 
-    public function renderDefault(array $uriOptions = null): void
+    public function renderDefault(Request $req): void
     {
-        $pageNumber = (int)($uriOptions['page'] ?? 1);
+
+        $pageNumber = $req->getIntParam('page') ?? 1;
         $firstNews = ($pageNumber - 1) * Registry::get('pageNewsNumber');
         $this->posts = $this->postService->getPostsBetween($firstNews, Registry::get('pageNewsNumber'));
         $paginatorPages = Paginator::getPages($pageNumber);
@@ -36,13 +37,13 @@ class Posts extends Controller
     public function deletePost(): void
     {
         $this->postService->deletePost(($_POST['id']));
-        header("Location: /?controller=Posts&action=renderDefault");
+        header("Location: /posts");
     }
 
     public function updatePost(): void
     {
         if ($this->postService->updatePost(($_POST['title']), $_POST['text'], $_POST['author'], $_POST['category'], $_POST['id'])) {
-            header("Location: /?controller=Posts&action=renderDefault");
+            header("Location: /posts");
         }
     }
 

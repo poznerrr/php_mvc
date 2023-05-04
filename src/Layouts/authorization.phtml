@@ -6,7 +6,7 @@
             </h1>
             <div class="text-info"><?= $this->authorizationMessage ?></div>
             <div>
-                <form method="post" name="authorization" action="/?controller=authorization&action=authorize">
+                <form method="post" name="authorization" action="/authorization/authorize">
                     <input class="form-control my-2" type="text" name="user-name" required
                            placeholder="Type Username">
                     <input class="form-control my-2" id="password" type="password" name="user-password" required

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Source\Controllers;
 
-use Source\App\Registry;
+use Source\App\{AuthorizationChecker, Registry, Request};
 use Source\Models\UserService;
 use Source\Views\AuthorizationView;
 
@@ -17,12 +17,10 @@ class Authorization extends Controller
         $this->userService = UserService::getInstance();
     }
 
-    public function renderDefault(array $uriOptions = null): void
+    public function renderDefault(Request $req): void
     {
-        if (!isset($uriOptions['keyStatus'])) {
-            $uriOptions['keyStatus'] = 'new';
-        }
-        $view = (new AuthorizationView(Registry::get('domain'), $uriOptions['keyStatus']))->buildHTML();
+        $keyStatus = $req->getParam('keyStatus') ?? 'new';
+        $view = (new AuthorizationView(Registry::get('domain'), $keyStatus))->buildHTML();
         $this->showOnMonitor($view);
 
     }
@@ -36,20 +34,21 @@ class Authorization extends Controller
             $password = $_POST['user-password'];
             if (password_verify($password, $desiredUser->getPassword())) {
                 $keyStatus = 'success';
-                setcookie('id', "{$desiredUser->getId()}", time() + 3600 * 24);
-                setcookie('password', "{$desiredUser->getPassword()}", time() + 3600 * 24);
+                setcookie('authorizeId', "{$desiredUser->getId()}", time() + 3600 * 24, '/');
+                setcookie('authorizePassword', "{$desiredUser->getPassword()}", time() + 3600 * 24, '/');
             } else {
                 $keyStatus = 'wrongData';
             }
         }
-        header("Location: /?controller=Authorization&action=renderDefault&keyStatus=$keyStatus");
+        $view = (new AuthorizationView(Registry::get('domain'), $keyStatus))->buildHTML();
+        $this->showOnMonitor($view);
     }
 
     public function logout(): void
     {
-        setcookie('id', '', time());
-        setcookie('password', '', time());
-        header("Location: /?controller=Authorization&action=renderDefault");
+        setcookie('authorizeId', '', time(), '/');
+        setcookie('authorizePassword', '', time(), '/');
+        header("Location: /Authorization");
     }
 
 }

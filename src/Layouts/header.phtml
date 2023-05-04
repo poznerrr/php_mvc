@@ -9,12 +9,12 @@
                             <a class="navbar-brand" href="#">BigSportNews</a>
                             <div>
                                 <a class="nav-link" aria-current="page"
-                                   href=<?= "{$this->domain}/?controller=index&action=renderDefault" ?>>Home</a>
+                                   href=<?= "{$this->domain}/" ?>>Home</a>
                             </div>
                             <?php if ($this->userName) { ?>
                             <div>
                                 <a class="nav-link"
-                                   href='<?= "{$this->domain}/?controller=post&action=renderDefault" ?>'>Add
+                                   href='<?= "{$this->domain}/post" ?>'>Add
                                     news</a>
                             </div>
                             <?php } ?>
@@ -31,13 +31,13 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/?controller=posts&action=renderDefault" ?>">Posts</a>
+                                       href="<?= "{$this->domain}/posts" ?>">Posts</a>
                                 </li>
                                 <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/?controller=categories&action=renderDefault" ?>">Categories</a>
+                                       href="<?= "{$this->domain}/categories" ?>">Categories</a>
                                 </li>
                                 <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/?controller=users&action=renderDefault" ?>">Users</a>
+                                       href="<?= "{$this->domain}/users" ?>">Users</a>
                                 </li>
                             </ul>
                         </div>
@@ -53,16 +53,16 @@
                                     Account
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/?controller=authorization&action=renderDefault">Sign
+                                    <li><a class="dropdown-item" href="/authorization">Sign
                                             in</a></li>
-                                    <li><a class="dropdown-item" href="/?controller=registration&action=renderDefault">Sign
+                                    <li><a class="dropdown-item" href="/registration">Sign
                                             up</a></li>
                                 </ul>
                             </div>
                         <?php } else { ?>
                             <div>
                                 <div><?= $this->userName ?></div>
-                                <a href='/?controller=authorization&action=logout'>Log out</a></div>
+                                <a href='/authorization/logout'>Log out</a></div>
                         <?php } ?>
                     </div>
                 </div>

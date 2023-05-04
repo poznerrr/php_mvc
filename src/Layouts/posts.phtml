@@ -16,7 +16,7 @@
                                 Автор: <?= htmlspecialchars($post->getAuthor()->getName()) ?></li>
                             <li class='list-group-item'>Дата: <?= htmlspecialchars($post->getDate()) ?> </li>
                         </ul>
-                        <form action='/?controller=posts&action=deletepost' method='post'>
+                        <form action='/posts/deletepost' method='post'>
                             <input type='hidden' name='id' value='<?= $post->getId() ?>'>
                             <input type='hidden' name='title' value='<?= $post->getTitle() ?>'>
                             <input type='hidden' name='text' value='<?= htmlspecialchars($post->getText()) ?>'>
@@ -45,7 +45,7 @@
 
                 <?php } else { ?>
                     <a class='link-primary mx-2 paginator-href'
-                       href='<?= $this->domain ?>/?controller=posts&action=renderDefault&page=<?= $i ?>'><?= $i ?></a>
+                       href='<?= $this->domain ?>/posts/page-<?= $i ?>'><?= $i ?></a>
                 <?php }
             }
             ?>
@@ -53,7 +53,7 @@
     </div>
     <div id="edit-modal" class="modal-wrapper hidden">
         <div class="form-wrapper">
-            <form action='/?controller=posts&action=updatePost' method='post'>
+            <form action='/posts/updatePost' method='post'>
                 <input type="hidden" id="input-id-edit" name="id" value="">
                 <label class="form-label"> Заголовок:</label><br>
                 <input type="text" class="form-control" name="title" id="input-title-edit" required="required"><br>
