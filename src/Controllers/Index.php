@@ -26,7 +26,20 @@ class Index extends Controller
         $firstNews = ($pageNumber - 1) * Registry::get('pageNewsNumber');
         $this->posts = $this->postService->getPostsBetween($firstNews, Registry::get('pageNewsNumber'));
         $paginatorPages = Paginator::getPages($pageNumber);
-        $view = (new IndexView(Registry::get('domain'), $this->posts, $pageNumber, $paginatorPages, $this->uriMaker))->buildHTML();
+        $newsCount = $this->postService->getPostsCount();
+        $view = (new IndexView(Registry::get('domain'), $this->posts, $pageNumber, $paginatorPages, $this->uriMaker, $newsCount))->buildHTML();
+        $this->showOnMonitor($view);
+    }
+
+    public function findSearch(Request $req): void
+    {
+        $searchCombination = $req->getParam('searchCombination');
+        $pageNumber = $req->getIntParam('page') ?? 1;
+        $firstNews = ($pageNumber - 1) * Registry::get('pageNewsNumber');
+        $this->posts = $this->postService->getFindPostsBetween($firstNews, Registry::get('pageNewsNumber'), $searchCombination);
+        $paginatorPages = Paginator::getPages($pageNumber, $searchCombination);
+        $newsCount = $this->postService->getPostsCountWithSearch($searchCombination);
+        $view = (new IndexView(Registry::get('domain'), $this->posts, $pageNumber, $paginatorPages, $this->uriMaker, $newsCount, $searchCombination))->buildHTML();
         $this->showOnMonitor($view);
     }
 

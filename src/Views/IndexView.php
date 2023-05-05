@@ -13,7 +13,10 @@ class IndexView extends View
         protected array    $posts,
         protected int      $pageNumber,
         protected array    $paginatorPages,
-        protected UriMaker $uriMaker)
+        protected UriMaker $uriMaker,
+        protected int      $postCount,
+        protected ?string   $searchCombination = null
+    )
     {
         parent::__construct();
         $this->mainPath = dirname(__DIR__) . '/Layouts/index.phtml';

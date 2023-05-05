@@ -17,6 +17,10 @@ a {
 }
 
 .header {
+
+}
+
+.primary-color {
     background-color: #e3d6d6;
 }
 
@@ -31,13 +35,13 @@ main {
 .changed, .changed:focus {
     outline: none;
     color: green;
-    border-color:green;
+    border-color: green;
 }
 
 .modal-wrapper {
     position: fixed;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100vh;
     display: flex;
@@ -58,4 +62,28 @@ main {
 a.paginator-href {
     display: block;
     text-decoration: none;
+}
+
+.button-search {
+    border: none;
+    cursor: pointer;
+}
+
+.image-search {
+    width: 30px;
+    height: 30px;
+}
+
+.cancel-container {
+    width: 15px;
+    height: 15px;
+    overflow: hidden;
+    background: url("/public/images/index/cancel.png");
+    background-size: contain;
+}
+
+.cancel-container:hover {
+    background-color: transparent;
+    border: 1px solid red;
+    cursor: pointer;
 }

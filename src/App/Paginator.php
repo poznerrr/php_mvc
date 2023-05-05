@@ -7,9 +7,10 @@ use Source\Models\PostService;
 
 class Paginator
 {
-    public static function getPages(int $currentPage, int $proposedOffset = 5): array
+    public static function getPages(int $currentPage, ?string $searchCombination = null, int $proposedOffset = 5): array
     {
-        $lastPossiblePage = ceil(PostService::getInstance()->getPostsCount() / Registry::get('pageNewsNumber'));
+        $count = $searchCombination ? PostService::getInstance()->getPostsCountWithSearch($searchCombination) : PostService::getInstance()->getPostsCount();
+        $lastPossiblePage = ceil($count / Registry::get('pageNewsNumber'));
         $firstProposedPage = $currentPage > $proposedOffset ? $currentPage - $proposedOffset : 1;
         $lastProposedPage = $currentPage < $lastPossiblePage - $proposedOffset ? $currentPage + $proposedOffset : $lastPossiblePage;
         return ['first' => $firstProposedPage, 'last' => $lastProposedPage];
