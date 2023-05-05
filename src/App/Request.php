@@ -10,14 +10,14 @@ class Request
 
     public function __construct($uriParams)
     {
-        $this->params = array_merge($uriParams, $_REQUEST);
+        $this->params = array_merge($uriParams, $_REQUEST, $_SERVER);
     }
 
     public function getParam(string $paramName): ?string
     {
         if (isset($this->params[$paramName])) {
             return $this->params[$paramName];
-    }
+        }
         return null;
     }
 
@@ -25,7 +25,7 @@ class Request
     {
         if (isset($this->params[$paramName])) {
             return (int)$this->params[$paramName];
-    }
+        }
         return null;
     }
 }

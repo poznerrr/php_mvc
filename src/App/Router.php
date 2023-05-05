@@ -15,7 +15,7 @@ class Router
         $pureUri = trim($_SERVER['REQUEST_URI'], "\t\n\r\0\x0B/");
         $uriTemplates = [
             '/^(\w+)\/page-(\d+)$/' => ['controller', 'page'],
-            '/^(\w+)\/number-(\d+)$/' => ['controller', 'postId'],
+            '/^(news)\/[\w-]+-r(\d+)$/' => ['controller', 'postId'],
             '/^(\w+)\/(\w+)$/' => ['controller', 'action'],
             '/^(\w+)$/' => ['controller'],
         ];

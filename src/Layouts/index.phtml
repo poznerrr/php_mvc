@@ -18,7 +18,7 @@
                         </ul>
                     </div>
                     <a class='btn btn-primary'
-                       href='<?= $this->domain ?>/news/number-<?= $post->getId() ?>'>Читать
+                       href='<?=$this->uriMaker->makeTitleUri($post)?>'>Читать
                         полностью</a>
                 </div>
                 <?php
