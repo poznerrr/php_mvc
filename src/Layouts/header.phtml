@@ -1,59 +1,74 @@
 <div class="wrapper">
-<div class="container-fluid bg-secondary bg-gradient fw-bold">
-    <div class="container">
-        <div class="row py-3">
+    <div class="container-fluid fw-bold header primary-color">
+        <div class="container">
+            <div class="row py-3">
 
-            <div class="col-sm-4">
-                <div class="row">
-                    <div class="d-flex justify-content-around">
-                        <a class="navbar-brand" href="#">BigSportNews</a>
-                        <div>
-                            <a class="nav-link" aria-current="page"
-                               href=<?= "{$this->domain}/?controller=index&action=render" ?>>Home</a>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="d-flex justify-content-around">
+                            <a class="navbar-brand" href="#">BigSportNews</a>
+                            <div>
+                                <a class="nav-link" aria-current="page"
+                                   href=<?= "{$this->domain}/" ?>>Home</a>
+                            </div>
+                            <?php if ($this->userName) { ?>
+                            <div>
+                                <a class="nav-link"
+                                   href='<?= "{$this->domain}/post" ?>'>Add
+                                    news</a>
+                            </div>
+                            <?php } ?>
                         </div>
-                        <div>
-                            <a class="nav-link" href='<?= "{$this->domain}/?controller=post&action=render" ?>'>Add news</a>
+                    </div>
+                </div>
+                <div class="col-sm-4 d-flex justify-content-center">
+                    <?php if ($this->userName) { ?>
+                    <div class="btn-group me-2">
+                        <div class="dropdown">
+                            <button class="btn btn-sm dropdown-toggle fw-bold" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin Panel
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                       href="<?= "{$this->domain}/posts" ?>">Posts</a>
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="<?= "{$this->domain}/categories" ?>">Categories</a>
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="<?= "{$this->domain}/users" ?>">Users</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-
+                    <?php } ?>
                 </div>
-
-            </div>
-            <div class="col-sm-4 d-flex justify-content-center">
-                <div class="btn-group me-2">
-                    <div class="dropdown">
-                        <button class="btn btn-sm dropdown-toggle fw-bold" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Admin Panel
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="<?="{$this->domain}/?controller=posts&action=render"?>">Posts</a></li>
-                            <li><a class="dropdown-item" href="<?="{$this->domain}/?controller=categories&action=render"?>">Categories</a></li>
-                            <li><a class="dropdown-item" href="<?="{$this->domain}/?controller=users&action=render"?>">Users</a></li>
-                        </ul>
+                <div class="col-sm-4 d-flex justify-content-end">
+                    <div class="btn-group me-2">
+                        <?php if (!$this->userName) { ?>
+                            <div class="dropdown">
+                                <button class="btn btn dropdown-toggle fw-bold" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Account
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/authorization">Sign
+                                            in</a></li>
+                                    <li><a class="dropdown-item" href="/registration">Sign
+                                            up</a></li>
+                                </ul>
+                            </div>
+                        <?php } else { ?>
+                            <div>
+                                <div><?= $this->userName ?></div>
+                                <a href='/authorization/logout'>Log out</a></div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 d-flex justify-content-end">
-                <div class="btn-group me-2">
-
-                    <div class="dropdown">
-                        <button class="btn btn dropdown-toggle fw-bold" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Account
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item disabled" href="#">Sign in</a></li>
-                            <li><a class="dropdown-item" href="/?controller=registration&action=render">Sign up</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
         </div>
-
     </div>
-</div>
 
 
 

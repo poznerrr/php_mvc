@@ -6,7 +6,7 @@ namespace Source\Controllers;
 
 use Source\Models\UserService;
 
-use Source\App\Registry;
+use Source\App\{Registry, Request};
 
 use Source\Views\UsersView;
 
@@ -20,7 +20,7 @@ class Users extends Controller
         $this->userService = UserService::getInstance();
     }
 
-    public function render(array $uriOptions = null): void
+    public function renderDefault(Request $req): void
     {
         $this->users = $this->userService->getAllUsers();
         $view = (new UsersView(Registry::get('domain'), $this->users))->buildHTML();
@@ -30,14 +30,14 @@ class Users extends Controller
     public function delete(): void
     {
         if ($this->userService->deleteUserById((int)$_POST['id'])) {
-            $this->render();
+            header("Location: /users");
         }
     }
 
     public function updateUser(): void
     {
         if ($this->userService->updateUserById((int)$_POST['id'], $_POST['name'])) {
-            $this->render();
+            header("Location: /users");
         }
     }
 

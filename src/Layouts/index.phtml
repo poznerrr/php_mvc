@@ -1,20 +1,71 @@
-<main class="container">
+<main class="container overflow-hidden">
+    <div class="row mt-3 primary-color">
+        <?php if (!isset($this->searchCombination)) { ?>
+            <div class="px-4">Показаны все новости. <?= "(Количество: $this->postCount)" ?></div>
+        <?php } else { ?>
+        <div class="d-flex align-items-center" id="cancel-search"><b>Показаны новости по теме "<?= $this->searchCombination ?>"</b>
+            <?= "(Количество: $this->postCount)" ?>
+            <div class="mx-2 cancel-container" title="Отменить"></div>
+        </div>
+    </div>
+    <?php } ?>
+    <div class="row mb-3 py-2 primary-color">
+        <div class="d-flex justify-content-around">
+            <div class="d-flex">
+                <p>Страница: </p>
+                <?php
+                for ($i = $this->paginatorPages['first']; $i <= $this->paginatorPages['last']; $i++) {
+                    if ($i === $this->pageNumber) {
+                        ?>
+                        <span class='mx-2'><?= $i ?></span>
+                    <?php } else { ?>
+                        <a class='link-primary mx-2 paginator-href'
+                        <?php if (isset($this->searchCombination)) { ?>
+                            href='<?= $this->domain ?>/index/findSearch/page-<?= $i ?>/?searchCombination=<?= $this->searchCombination ?>'><?= $i ?></a>
+                        <?php } else { ?>
+                            href='<?= $this->domain ?>/index/page-<?= $i ?>'><?= $i ?></a>
+                            <?php
+                        }
+                    }
+                }
+                ?>
+            </div>
+            <div class="d-flex align-items-center">
+                <form id="form-search" method="get" action="/index/findSearch/">
+                    <input type="text" id="input-search" name="searchCombination"
+                           value='<?= $this->searchCombination ?>'>
+                </form>
+                <button class="button-search" id="button-search">
+                    <img class="image-search" src="/public/images/index/search.png">
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="row my-3">
-        <?php
-        if (!$this->posts) {
-            echo "<p>Новостей пока нету.</p>";
-        } else {
+        <?php if (!$this->posts) { ?>
+            <p>Новостей пока нету.</p>
+        <?php } else {
             foreach ($this->posts as $post) {
-                echo "<div class='card center-block p-3 my-2'>";
-                echo "<div class='card-body'>";
-                echo "<h5 class='card-title text-center'>" . $post->getTitle() . "</h5>";
-                echo "<div class='card-text'>" . $post->getText() . "</div>";
-                echo "<ul class='list group list-group-flush mt-3 h6'>";
-                echo "<li class='list-group-item'><b>Категория: </b><i>" . htmlspecialchars($post->getCategory()->getName()) . "</i></li>";
-                echo "<li class='list-group-item'><b>Автор: </b><i>" . htmlspecialchars($post->getAuthor()->getName()) . "</i></li>";
-                echo "<li class='list-group-item'><b>Дата: </b><i>" . htmlspecialchars($post->getDate()) . "</i></li>";
-                echo "</ul>";
-                echo "</div></div>";
+                ?>
+                <div class='card center-block p-3 my-2'>
+                    <div class='card-body'>
+                        <h5 class='card-title text-center'><?= $post->getTitle() ?></h5>
+                        <div
+                            class='card-text'><?= mb_strimwidth((strip_tags($post->getText(), ['p', 'br'])), 0, 200, '...') ?></div>
+                        <ul class='list group list-group-flush mt-3 h6'>
+                            <li class='list-group-item'>
+                                <b>Категория: </b><i><?= htmlspecialchars($post->getCategory()->getName()) ?> </i>
+                            </li>
+                            <li class='list-group-item'>
+                                <b>Дата: </b><i><?= htmlspecialchars($post->getDate()) ?></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <a class='btn btn-primary'
+                       href='<?= $this->uriMaker->makeTitleUri($post) ?>'>Читать
+                        полностью</a>
+                </div>
+                <?php
             }
         }
         ?>
@@ -25,14 +76,21 @@
             <?php
             for ($i = $this->paginatorPages['first']; $i <= $this->paginatorPages['last']; $i++) {
                 if ($i === $this->pageNumber) {
-                    echo "<span class='mx-2'>$i</span>";
-                } else {
-                    echo "<a class='link-primary mx-2 paginator-href' href='{$this->domain}/?controller=index&action=render&page=$i'>$i</a>";
+                    ?>
+                    <span class='mx-2'><?= $i ?></span>
+                <?php } else { ?>
+                    <a class='link-primary mx-2 paginator-href'
+                    <?php if (isset($this->searchCombination)) { ?>
+                        href='<?= $this->domain ?>/index/findSearch/page-<?= $i ?>/?searchCombination=<?= $this->searchCombination ?>'><?= $i ?></a>
+                    <?php } else { ?>
+                        href='<?= $this->domain ?>/index/page-<?= $i ?>'><?= $i ?></a>
+                        <?php
+                    }
                 }
             }
             ?>
         </div>
     </div>
 </main>
-
+<script src="/public/scripts/index/index.js"></script>
 

@@ -1,32 +1,35 @@
 <main class="container">
     <div class="row gy-3">
-        <?php
-        if (!$this->posts) {
-            echo "<p>Новостей пока нету.</p>";
-        } else {
+        <?php if (!$this->posts) { ?>
+            <p>Новостей пока нету.</p>
+        <?php } else {
             foreach ($this->posts as $post) {
-                echo "<div class='card center-block p-3'>";
-                echo "<div class='card-body'>";
-                echo "<h5 class='card-title'>" . htmlspecialchars($post->getTitle()) . "</h5>";
-                echo "<div class='card-text'>" . htmlspecialchars($post->getText()) . "</div>";
-                echo "<ul class='list group list-group-flush'>";
-                echo "<li class='list-group-item'>Категория: " . htmlspecialchars($post->getCategory()->getName()) . "</li>";
-                echo "<li class='list-group-item'>Автор: " . htmlspecialchars($post->getAuthor()->getName()) . "</li>";
-                echo "<li class='list-group-item'>Дата: " . htmlspecialchars($post->getDate()) . "</li>";
-                echo "</ul>";
-
-                echo "<form action='/?controller=posts&action=deletepost' method='post'>";
-                echo "<input type='hidden' name='id' value='{$post->getId()}'>";
-                echo "<input type = 'hidden' name = 'title' value = '{$post->getTitle()}'>";
-                echo "<input type = 'hidden' name = 'text' value ='" . htmlspecialchars($post->getText()) . "'>";
-                echo "<input type = 'hidden' name = 'authorId' value = '{$post->getAuthor()->getId()}'>";
-                echo "<input type = 'hidden' name = 'authorName' value = '{$post->getAuthor()->getName()}'>";
-                echo "<input type = 'hidden' name = 'categoryId' value = '{$post->getCategory()->getId()}'>";
-                echo "<input type = 'hidden' name = 'categoryName' value = '{$post->getCategory()->getName()}'>";
-                echo "<input class='btn btn-danger mx-1' type = 'submit' value = 'Удалить новость'>";
-                echo "<div class='btn btn-primary' onclick = 'toggleEditModal(this)'> Редактировать новость </div>";
-                echo '</form>';
-                echo "</div></div>";
+                ?>
+                <div class='card center-block p-3'>
+                    <div class='card-body'>
+                        <h5 class='card-title'><?= htmlspecialchars($post->getTitle()) ?></h5>
+                        <div class='card-text'><?= htmlspecialchars($post->getText()) ?></div>
+                        <ul class='list group list-group-flush'>
+                            <li class='list-group-item'>
+                                Категория: <?= htmlspecialchars($post->getCategory()->getName()) ?></li>
+                            <li class='list-group-item'>
+                                Автор: <?= htmlspecialchars($post->getAuthor()->getName()) ?></li>
+                            <li class='list-group-item'>Дата: <?= htmlspecialchars($post->getDate()) ?> </li>
+                        </ul>
+                        <form action='/posts/deletepost' method='post'>
+                            <input type='hidden' name='id' value='<?= $post->getId() ?>'>
+                            <input type='hidden' name='title' value='<?= $post->getTitle() ?>'>
+                            <input type='hidden' name='text' value='<?= htmlspecialchars($post->getText()) ?>'>
+                            <input type='hidden' name='authorId' value='<?= $post->getAuthor()->getId() ?>'>
+                            <input type='hidden' name='authorName' value='<?= $post->getAuthor()->getName() ?>'>
+                            <input type='hidden' name='categoryId' value='<?= $post->getCategory()->getId() ?>'>
+                            <input type='hidden' name='categoryName' value='<?= $post->getCategory()->getName() ?>'>
+                            <input class='btn btn-danger mx-1' type='submit' value='Удалить новость'>
+                            <div class='btn btn-primary' onclick='toggleEditModal(this)'> Редактировать новость</div>
+                        </form>
+                    </div>
+                </div>
+                <?php
             }
         }
         ?>
@@ -37,17 +40,20 @@
             <?php
             for ($i = $this->paginatorPages['first']; $i <= $this->paginatorPages['last']; $i++) {
                 if ($i === $this->pageNumber) {
-                    echo "<span class='mx-2'>$i</span>";
-                } else {
-                    echo "<a class='link-primary mx-2 paginator-href' href='{$this->domain}/?controller=posts&action=render&page=$i'>$i</a>";
-                }
+                    ?>
+                    <span class='mx-2'><?= $i ?></span>
+
+                <?php } else { ?>
+                    <a class='link-primary mx-2 paginator-href'
+                       href='<?= $this->domain ?>/posts/page-<?= $i ?>'><?= $i ?></a>
+                <?php }
             }
             ?>
         </div>
     </div>
     <div id="edit-modal" class="modal-wrapper hidden">
         <div class="form-wrapper">
-            <form action='/?controller=posts&action=updatePost' method='post'>
+            <form action='/posts/updatePost' method='post'>
                 <input type="hidden" id="input-id-edit" name="id" value="">
                 <label class="form-label"> Заголовок:</label><br>
                 <input type="text" class="form-control" name="title" id="input-title-edit" required="required"><br>
@@ -67,9 +73,9 @@
                     <option selected disabled value="">Выберите категорию</option>
                     <?php
                     foreach ($this->categories as $category) {
-                        echo "<option value='{$category->getId()}'>{$category->getName()}</option>>";
-                    }
-                    ?>
+                        ?>
+                        <option value='<?= $category->getId() ?>'><?= $category->getName() ?></option>>";
+                    <?php } ?>
                     <input class="btn btn-primary my-4" type="submit" value="Редактировать пост">
                     <div class="btn btn-secondary" onclick="toggleEditModal(null)">Отменить</div>
             </form>

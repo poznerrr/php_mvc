@@ -6,17 +6,8 @@ namespace Source\Models;
 
 class User
 {
-    private int $id;
-    private string $name;
-
-    public function __construct(int|null $id = null, string|null $name = null)
+    public function __construct(private int $id, private string $name, private ?string $password = null)
     {
-        if (isset($id)) {
-            $this->id = $id;
-        }
-        if (isset($name)) {
-            $this->name = $name;
-        }
     }
 
     public function getId(): int
@@ -38,4 +29,10 @@ class User
     {
         $this->name = $name;
     }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
 }
