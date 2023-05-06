@@ -1,7 +1,7 @@
 <main class="container">
     <div class="row">
         <h2>Добавьте вашу новость:</h2>
-        <form method="post" action="/?controller=post&action=render">
+        <form method="post" action="/post/createPost">
             <label class="form-label"> Заголовок:</label><br>
             <input type="text" class="form-control" name="title" required="required"><br>
             <label class="form-label"> Текст статьи:</label><br>
@@ -11,18 +11,18 @@
                 <option value="" selected disabled>Выберите автора</option>
                 <?php
                 foreach ($this->users as $user) {
-                    echo "<option value='{$user->getId()}'>{$user->getName()}</option>>";
-                }
-                ?>
+                    ?>
+                    <option value='<?= $user->getId() ?>'><?= $user->getName() ?></option>>";
+                <?php } ?>
             </select><br>
             <label class="form-label"> Категория:</label>
             <select class="form-select" name="category" size="1" required>
                 <option selected disabled value="">Выберите категорию</option>
                 <?php
                 foreach ($this->categories as $category) {
-                    echo "<option value='{$category->getId()}'>{$category->getName()}</option>>";
-                }
-                ?>
+                    ?>
+                    <option value='<?= $category->getId() ?>'><?= $category->getName() ?></option>>";
+                <?php } ?>
             </select><br>
             <input type="submit" class="btn btn-primary" value="Отправить">
         </form>

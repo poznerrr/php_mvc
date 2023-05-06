@@ -10,39 +10,61 @@ use Source\Controllers\{Index, NotFound};
 class Router
 {
 
-    public function __construct()
+    public static function parse(): array
     {
-    }
-
-    public function route(): void
-    {
-        $controllersFolder = "Source\\Controllers\\";
-        //если стартовая страница
-        if (!isset($_GET['controller']) && !isset($_GET['action'])) {
-            $controllerName = 'index';
-            $actionName = 'render';
-        } else {
-            if (!isset($_GET['controller']) || !isset($_GET['action'])) {
-                $controllerName = 'notfound';
-                $actionName = 'render';
-            } else {
-                $controllerName = $_GET['controller'];
-                $actionName = $_GET['action'];
+        $pureUri = trim($_SERVER['REQUEST_URI'], "\t\n\r\0\x0B/");
+        $uriTemplates = [
+            '/^(\w+)\/(\w+)\/page-(\d+)\/?.*$/' => ['controller', 'action', 'page'],
+            '/^(\w+)\/page-(\d+)$/' => ['controller', 'page'],
+            '/^(news)\/[\w-]+-r(\d+)$/' => ['controller', 'postId'],
+            '/^(\w+)\/(\w+)\/?.*$/' => ['controller', 'action'],
+            '/^(\w+)\/(\w+)$/' => ['controller', 'action'],
+            '/^(\w+)$/' => ['controller'],
+        ];
+        $parametersKeys = [];
+        $parametersValues = [];
+        $matches = [];
+        foreach ($uriTemplates as $templateKey => $templateValue) {
+            if (preg_match($templateKey, $pureUri, $matches)) {
+                $parametersKeys = $templateValue;
+                $iterator = 1;
+                foreach ($parametersKeys as $value) {
+                    $parametersValues[] = $matches[$iterator++];
+                }
+                break;
             }
         }
-        $controller = $this->makeController($controllerName, $controllersFolder);
-        method_exists($controller, $actionName) ? $controller->$actionName() :
-            $this->makeController('notfound', $controllersFolder)->render();
+        /*обработка исключения - пустого uri, ведущего на Index*/
+        if (count($parametersValues) == 0) {
+            $parametersKeys[] = 'controller';
+            $parametersValues[0] = 'Index';
+        }
+        $parameters = array_combine($parametersKeys, $parametersValues);
+
+        $parameters['controller'] = $parameters['controller'] ?? 'notFound';
+        $parameters['action'] = $parameters['action'] ?? 'renderDefault';
+        return $parameters;
+
     }
 
-    private function makeController(
-        string $controllerName,
-        string $controllersFolder
-    ): Controller {
+    public static function route(Request $req): void
+    {
+        $controller = self::makeController($req->params['controller']);
+        $action = $req->params['action'];
+        if (method_exists($controller, $action)) {
+            $controller->$action($req);
+        } /*иначе выводим 404*/
+        else {
+            self::makeController('notFound')->renderDefault($req);
+        }
+    }
+
+    private static function makeController(string $controllerName): Controller
+    {
+        $controllersFolder = Registry::get('controllersFolder');
         $controller = $controllersFolder . $controllerName;
-        if ($controller == $controllersFolder) {
-            return new Index();
-        } elseif (!class_exists($controller) || $controllerName == 'controller') {
+        /*если контроллера не существует выводим 404*/
+        if (!class_exists($controller) || $controllerName == 'controller') {
             return new NotFound();
         }
         return new $controller();

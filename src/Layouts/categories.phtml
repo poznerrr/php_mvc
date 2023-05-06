@@ -1,0 +1,47 @@
+<main class="container">
+    <div class="row my-2">
+        <div class="d-flex flex-column align-items-center border border-secondary my-4 py-3">
+            <p>Добавить новую категорию</p>
+            <form action='/categories/createCategory' method='post'>
+                <input type="text" name="name" placeholder="Имя новой категории" required>
+                <input class="btn btn-primary" type="submit" value="Добавить">
+            </form>
+        </div>
+        <?php if (!$this->categories) { ?>
+            <p>Категорий нету.</p>
+            <?php
+        } else {
+            foreach ($this->categories as $category) {
+                ?>
+                <div class='card center-block p-3 my-2'>
+                    <div class='card-body'>
+                        <div class='card-text'> ID: <?= htmlspecialchars($category->getId()) ?></div>
+                        <div class='card-text'>Category name: <?= htmlspecialchars($category->getName()) ?></div>
+                        </ul>
+                        <form action='/categories/delete' method='post'>
+                            <input type="hidden" name="delete" value="yes">
+                            <input type="hidden" name="id" value="<?= $category->getId() ?>">
+                            <input type="hidden" name="name" value="<?= $category->getName() ?>">
+                            <input class="btn btn-danger" type="submit" value="Удалить категорию">
+                            <div class='btn btn-primary' onclick='toggleEditModal(this)'>Редактировать</div>
+                        </form>
+                    </div>
+                </div>
+
+            <?php } ?>
+
+            <div id="edit-modal" class="modal-wrapper hidden">
+                <div class="form-wrapper">
+                    <form action='/categories/updateCategory' method='post'>
+                        <input type="input" id="input-name-edit" name="name" value="" required>
+                        <input type="hidden" name="edit" value="yes">
+                        <input type="hidden" id="input-id-edit" name="id" value="">
+                        <input class="btn btn-primary" type="submit" value="Редактировать категорию">
+                        <div class="btn btn-primary" onclick="toggleEditModal(null)">Отменить</div>
+                    </form>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</main>
+<script src="/public/scripts/categories/categories.js"></script>

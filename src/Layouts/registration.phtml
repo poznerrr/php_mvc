@@ -1,0 +1,21 @@
+<main class="container">
+    <div class="row">
+        <div class="d-flex align-items-center flex-column my-5">
+            <h1>
+                Регистрация
+            </h1>
+            <div>
+                <form method="post" name="registration" action="/registration/register"
+                      onsubmit="return validate()">
+                    <input class="form-control my-2" type="text" name="user-name" required placeholder="Type Username">
+                    <input class="form-control my-2" id="password" type="password" name="user-password" required
+                           placeholder="Type password" minlength="6">
+                    <input class="form-control my-2" id="confirm-password" type="password" name="user-password-confirm"
+                           required placeholder="Confirm password" minlength="6">
+                    <input type="submit" class="btn btn-primary my-2" value="Зарегистрировать">
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="/public/scripts/registration/checkParams.js"></script>

@@ -1,0 +1,17 @@
+<main class="container">
+    <div class="row mt-5">
+        <div class='card center-block p-3 my-2'>
+            <div class='card-body'>
+                <h5 class='card-title text-center'><?= $this->post->getTitle() ?></h5>
+                <div class='card-text'><?= $this->post->getText() ?></div>
+                <ul class='list group list-group-flush mt-3 h6'>
+                    <li class='list-group-item'>
+                        <b>Категория: </b><i><?= htmlspecialchars($this->post->getCategory()->getName()) ?></i></li>
+                    <li class='list-group-item'>
+                        <b>Автор: </b><i><?= htmlspecialchars($this->post->getAuthor()->getName()) ?></i></li>
+                    <li class='list-group-item'><b>Дата: </b><i><?= htmlspecialchars($this->post->getDate()) ?></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>

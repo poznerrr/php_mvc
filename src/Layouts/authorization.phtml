@@ -1,0 +1,19 @@
+<main class="container">
+    <div class="row">
+        <div class="d-flex align-items-center flex-column my-5">
+            <h1>
+                Авторизация
+            </h1>
+            <div class="text-info"><?= $this->authorizationMessage ?></div>
+            <div>
+                <form method="post" name="authorization" action="/authorization/authorize">
+                    <input class="form-control my-2" type="text" name="user-name" required
+                           placeholder="Type Username">
+                    <input class="form-control my-2" id="password" type="password" name="user-password" required
+                           placeholder="Type password" minlength="6">
+                    <input type="submit" class="btn btn-primary my-2" value="Авторизоваться">
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
