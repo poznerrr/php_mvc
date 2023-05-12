@@ -87,3 +87,9 @@ a.paginator-href {
     border: 1px solid red;
     cursor: pointer;
 }
+/*==================================================================================*/
+/*Блок NEWS*/
+
+.proposed-news {
+    background-color: rgba(255, 255, 255, 0.55);
+}
