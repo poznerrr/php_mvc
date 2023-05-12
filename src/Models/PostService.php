@@ -133,8 +133,7 @@ class PostService
                 JOIN categories ON posts.category_id = categories.category_id
                 JOIN users ON posts.user_id = users.user_id
             WHERE MATCH (title, post_text)
-                AGAINST ('%$search%' IN NATURAL LANGUAGE MODE)
-            ORDER BY post_id DESC
+                AGAINST ('$search' IN NATURAL LANGUAGE MODE)
             LIMIT $firstNews, $newsOffset";
         $result = $this->db->query($query);
         while ($row = $result->fetch()) {
