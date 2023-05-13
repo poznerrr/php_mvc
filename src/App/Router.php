@@ -10,17 +10,10 @@ use Source\Controllers\{Index, NotFound};
 class Router
 {
 
-    public static function parse(): array
+    public static function parse(array $pathes): array
     {
         $pureUri = trim($_SERVER['REQUEST_URI'], "\t\n\r\0\x0B/");
-        $uriTemplates = [
-            '/^(\w+)\/(\w+)\/page-(\d+)\/?.*$/' => ['controller', 'action', 'page'],
-            '/^(\w+)\/page-(\d+)$/' => ['controller', 'page'],
-            '/^(news)\/[\w-]+-r(\d+)$/' => ['controller', 'postId'],
-            '/^(\w+)\/(\w+)\/?.*$/' => ['controller', 'action'],
-            '/^(\w+)\/(\w+)$/' => ['controller', 'action'],
-            '/^(\w+)$/' => ['controller'],
-        ];
+        $uriTemplates = $pathes;
         $parametersKeys = [];
         $parametersValues = [];
         $matches = [];

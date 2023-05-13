@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Source\App;
 
-use Source\Models\{Post,TSingletone};
+use Source\Models\{Post, TSingletone};
+
 class UriMaker
 {
     use TSingletone;
@@ -20,7 +21,7 @@ class UriMaker
 
     public function urlRuEnTranslite(string $ruString): string
     {
-        $enString = str_replace([' ', ',', '.', '–', '«', '»', ':', '?', '!','+',chr(38),"quot;",'/','\\'], '-', $ruString);
+        $enString = str_replace([' ', ',', '.', '–', '«', '»', ':', '?', '!', '+', chr(38), "quot;", '/', '\\'], '-', $ruString);
         $enString = mb_ereg_replace('[-]+', '-', $enString);
         $enString = trim($enString, '-');
         $enString = strtr(mb_strtolower($enString), $this->ruEnConverter);
@@ -29,7 +30,7 @@ class UriMaker
 
     public function makeTitleUri(Post $post): string
     {
-        return "/news/".$this->urlRuEnTranslite($post->getTitle()) . '-r' . $post->getId();
+        return "/news/" . $this->urlRuEnTranslite($post->getTitle()) . '-r' . $post->getId();
     }
 
 }
