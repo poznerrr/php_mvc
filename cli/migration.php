@@ -71,7 +71,9 @@ function getMigrationFiles(PDO $con): array
     foreach ($data as $row) {
         $versionsFiles[] = $sqlFolder . $row['name'];
     }
-    return array_diff($allFiles, $versionsFiles);
+    $migrationFiles = array_diff($allFiles, $versionsFiles);
+    natsort($migrationFiles);
+    return  $migrationFiles;
 }
 
 function migrate($con, $file): void
