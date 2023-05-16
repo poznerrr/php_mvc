@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Source\App;
 
 use Source\Controllers\Controller;
-use Source\Controllers\{Index, NotFound};
+use Source\Controllers\{ControllerAPI, Index, NotFound};
 
 class Router
 {
@@ -34,6 +34,12 @@ class Router
         }
         $parameters = array_combine($parametersKeys, $parametersValues);
 
+        //для API - добавить к контроллеру suffix api
+        if (isset($parameters['method']) && $parameters['method'] === 'api') {
+            $parameters['controller'] .= $parameters['method'];
+            $parameters['action'] = $_SERVER['REQUEST_METHOD'];
+        }
+
         $parameters['controller'] = $parameters['controller'] ?? 'notFound';
         $parameters['action'] = $parameters['action'] ?? 'renderDefault';
         return $parameters;
@@ -52,7 +58,7 @@ class Router
         }
     }
 
-    private static function makeController(string $controllerName): Controller
+    private static function makeController(string $controllerName): Controller|ControllerAPI
     {
         $controllersFolder = Registry::get('controllersFolder');
         $controller = $controllersFolder . $controllerName;

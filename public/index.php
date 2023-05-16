@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Source\App\{Router, Registry, AuthorizationChecker, Request};
@@ -16,6 +19,7 @@ Registry::set('dbObject', $dbObject);
 Registry::set('domain', $config['domain']);
 Registry::set('pageNewsNumber', $config['pageNewsNumber']);
 Registry::set('controllersFolder', $config['controllersFolder']);
+Registry::set('DtoFolder', $config['DtoFolder']);
 
 AuthorizationChecker::checkAuthorization();
 $request = new Request(Router::parse($routePathes));

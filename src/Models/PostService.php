@@ -18,11 +18,15 @@ class PostService
         $this->db = Registry::get('dbObject');
     }
 
-    public function createPost(string $title, string $text, int $userId, int $categoryId): void
+    public function createPost(string $title, string $text, int $userId, int $categoryId): bool
     {
-        $query = "INSERT INTO posts VALUES (NULL, ?,?,?,?,?)";
-        $statement = $this->db->prepare($query);
-        $statement->execute([$title, $text, $userId, $categoryId, time()]);
+        try {
+            $query = "INSERT INTO posts VALUES (NULL, ?,?,?,?,?)";
+            $statement = $this->db->prepare($query);
+            return $statement->execute([$title, $text, $userId, $categoryId, time()]);
+        } catch (\Throwable) {
+            return false;
+        }
     }
 
 
@@ -103,25 +107,28 @@ class PostService
         return $stmt->execute([$title, $text, $userId, $categoryId, time(), $postId]);
     }
 
-    public function getPostById(string $id): Post
+    public function getPostById(string $id): ?Post
     {
-        $posts = [];
-        $query = "SELECT posts.post_id, posts.title, posts.post_text, posts.post_date,
+        try {
+            $query = "SELECT posts.post_id, posts.title, posts.post_text, posts.post_date,
             categories.category_name, categories.category_id, users.user_name, users.user_id
             FROM posts
             JOIN categories ON posts.category_id = categories.category_id
             JOIN users ON  posts.user_id = users.user_id
             WHERE posts.post_id = $id";
-        $result = $this->db->query($query);
-        $row = $result->fetch();
-        $post = new Post;
-        $post->setId($row['post_id']);
-        $post->setCategory(new Category ($row['category_id'], $row['category_name']));
-        $post->setTitle($row['title']);
-        $post->setText($row['post_text']);
-        $post->setAuthor(new User($row['user_id'], $row['user_name']));
-        $post->setDate(date('Y-m-d H:i:s', $row['post_date']));
-        return $post;
+            $result = $this->db->query($query);
+            $row = $result->fetch();
+            $post = new Post;
+            $post->setId($row['post_id']);
+            $post->setCategory(new Category ($row['category_id'], $row['category_name']));
+            $post->setTitle($row['title']);
+            $post->setText($row['post_text']);
+            $post->setAuthor(new User($row['user_id'], $row['user_name']));
+            $post->setDate(date('Y-m-d H:i:s', $row['post_date']));
+            return $post;
+        } catch (\Throwable) {
+            return null;
+        }
     }
 
     public function getFindPostsBetween(int $firstNews, int $newsOffset, string $search): array

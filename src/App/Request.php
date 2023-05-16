@@ -7,10 +7,19 @@ namespace Source\App;
 class Request
 {
     public array $params;
+    public array $apiBody = [];
 
     public function __construct($uriParams)
     {
-        $this->params = array_merge($uriParams, $_REQUEST, $_SERVER);
+        $rawBody = file_get_contents('php://input');
+        if ($rawBody) {
+            try {
+                $this->apiBody = json_decode($rawBody, true);
+            } catch (\Throwable $e) {
+
+            }
+        }
+        $this->params = array_merge($uriParams, $_REQUEST, $_SERVER, $this->apiBody);
     }
 
     public function getParam(string $paramName): ?string
