@@ -22,7 +22,7 @@ class AuthorizationAPI extends ControllerAPI
         if (!$isValid) {
             $dto = new ErrorDto($keyStatus);
         } else {
-            $jwt = JwtHandler::makeJWT($this->currentUser->getName());
+            $jwt = JwtHandler::makeJWT($this->currentUser->getId());
             $dto = new AuthorizeDto($jwt);
         }
         $this->returnAnswer($dto);

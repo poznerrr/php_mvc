@@ -20,11 +20,6 @@ class NewsAPI extends ControllerAPI
     public function get(Request $req): void
     {
         $postId = $req->getParam('postId');
-        $authorizedString = $req->getParam('HTTP_AUTHORIZATION');
-        list($isAuthorized, $authorizedMessage) = JwtHandler::checkJwt($authorizedString);
-        if (!$isAuthorized) {
-            $dto = new ErrorDto($authorizedMessage);
-        } else {
             $this->post = $this->postService->getPostById($postId);
             if ($this->post) {
                 $dto = new NewsDto($this->post->getId(),
@@ -37,22 +32,27 @@ class NewsAPI extends ControllerAPI
             } else {
                 $dto = new ErrorDto('Новости с заданным id не существует');
             }
-        }
+
 
         $this->returnAnswer($dto);
     }
 
     public function post(Request $req): void
     {
-        $title = $req->getParam('title');
-        $post = $req->getParam('post');
-        $userId = $req->getIntParam('userId');
-        $categoryId = $req->getIntParam('categoryId');
-        $isCreate = $this->postService->createPost($title, $post, $userId, $categoryId);
-        if ($isCreate) {
-            $dto = new SuccessDto('Пост успешно создан');
+        $authorizedString = $req->getParam('HTTP_AUTHORIZATION');
+        list($isAuthorized, $authorizedMessage, $userId) = JwtHandler::checkJwt($authorizedString);
+        if (!$isAuthorized) {
+            $dto = new ErrorDto($authorizedMessage);
         } else {
-            $dto = new ErrorDto('Нe удалось создать пост');
+            $title = $req->getParam('title');
+            $post = $req->getParam('post');
+            $categoryId = $req->getIntParam('categoryId');
+            $isCreate = $this->postService->createPost($title, $post, $userId, $categoryId);
+            if ($isCreate) {
+                $dto = new SuccessDto('Пост успешно создан');
+            } else {
+                $dto = new ErrorDto('Нe удалось создать пост');
+            }
         }
         $this->returnAnswer($dto);
     }

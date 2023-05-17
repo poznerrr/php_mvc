@@ -8,7 +8,7 @@ use Firebase\JWT\Key;
 
 class JwtHandler
 {
-    public static function makeJWT(string $userName): string
+    public static function makeJWT(int $userId): string
     {
         $secretKey = Registry::get('secretKey');
         $date = new \DateTimeImmutable();
@@ -20,7 +20,7 @@ class JwtHandler
             'iss' => $domainName,                       // Issuer
             'nbf' => $date->getTimestamp(),         // Not before
             'exp' => $expireAt,                           // Expire
-            'userName' => $userName,                     // User name
+            'userId' => $userId,                     // User name
         ];
         return JWT::encode(
             $requestData,
@@ -38,22 +38,22 @@ class JwtHandler
         }
         $jwt = $matches[1];
         if (!$jwt) {
-            return [false, 'Bad request'];
+            return [false, 'Bad request', null];
         }
         try
         {
         $token = JWT::decode($jwt, new Key($secretKey, $alg));
         }
         catch (\Throwable) {
-            return [false, 'Unauthorized'];
+            return [false, 'Unauthorized', null];
         }
         $now = new \DateTimeImmutable();
         $serverName = Registry::get('domain');
         if ($token->iss !== $serverName ||
             $token->nbf > $now->getTimestamp() ||
             $token->exp < $now->getTimestamp()) {
-            return [false, 'Unauthorized'];
+            return [false, 'Unauthorized', null];
         }
-        return [true, 'success'];
+        return [true, 'success', $token->userId];
     }
 }
