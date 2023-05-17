@@ -20,6 +20,8 @@ Registry::set('domain', $config['domain']);
 Registry::set('pageNewsNumber', $config['pageNewsNumber']);
 Registry::set('controllersFolder', $config['controllersFolder']);
 Registry::set('DtoFolder', $config['DtoFolder']);
+Registry::set('secretKey', $config['secretKey']);
+Registry::set('jwtAlg', $config['jwtAlg']);
 
 AuthorizationChecker::checkAuthorization();
 $request = new Request(Router::parse($routePathes));

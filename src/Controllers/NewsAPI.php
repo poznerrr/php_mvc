@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Source\Controllers;
 
-use Source\App\{DtoFactory, Request};
+use Source\App\{JwtHandler, Request};
 use Source\Models\{DTO\ErrorDto, DTO\NewsDto, DTO\SuccessDto, PostService, Post};
 
 class NewsAPI extends ControllerAPI
@@ -20,18 +20,25 @@ class NewsAPI extends ControllerAPI
     public function get(Request $req): void
     {
         $postId = $req->getParam('postId');
-        $this->post = $this->postService->getPostById($postId);
-        if ($this->post) {
-            $dto = new NewsDto($this->post->getId(),
-                $this->post->getTitle(),
-                $this->post->getText(),
-                $this->post->getCategory()->getName(),
-                $this->post->getAuthor()->getName(),
-                $this->post->getDate()
-            );
+        $authorizedString = $req->getParam('HTTP_AUTHORIZATION');
+        list($isAuthorized, $authorizedMessage) = JwtHandler::checkJwt($authorizedString);
+        if (!$isAuthorized) {
+            $dto = new ErrorDto($authorizedMessage);
         } else {
-            $dto = new ErrorDto('Новости с заданным id не существует');
+            $this->post = $this->postService->getPostById($postId);
+            if ($this->post) {
+                $dto = new NewsDto($this->post->getId(),
+                    $this->post->getTitle(),
+                    $this->post->getText(),
+                    $this->post->getCategory()->getName(),
+                    $this->post->getAuthor()->getName(),
+                    $this->post->getDate()
+                );
+            } else {
+                $dto = new ErrorDto('Новости с заданным id не существует');
+            }
         }
+
         $this->returnAnswer($dto);
     }
 

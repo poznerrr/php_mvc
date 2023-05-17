@@ -10,11 +10,9 @@ use Source\Views\AuthorizationView;
 
 class Authorization extends Controller
 {
-    public UserService $userService;
 
     public function __construct()
     {
-        $this->userService = UserService::getInstance();
     }
 
     public function renderDefault(Request $req): void
@@ -25,20 +23,35 @@ class Authorization extends Controller
 
     }
 
-    public function authorize(): void
+    public static function validation($name, $password): array
     {
-        $desiredUser = $this->userService->getUserByName($_POST['user-name']);
+        $userService = UserService::getInstance();
+        $desiredUser = $userService->getUserByName($name);
         if (!isset($desiredUser)) {
+            $isValid = false;
             $keyStatus = 'notFoundUser';
+            $desiredUser = null;
         } else {
-            $password = $_POST['user-password'];
             if (password_verify($password, $desiredUser->getPassword())) {
+                $isValid = true;
                 $keyStatus = 'success';
-                setcookie('authorizeId', "{$desiredUser->getId()}", time() + 3600 * 24, '/');
-                setcookie('authorizePassword', "{$desiredUser->getPassword()}", time() + 3600 * 24, '/');
             } else {
+                $isValid = false;
                 $keyStatus = 'wrongData';
+                $desiredUser = null;
             }
+        }
+        return [$isValid, $keyStatus, $desiredUser];
+    }
+
+    public function authorize(Request $req): void
+    {
+        list($isValid, $keyStatus, $currentUser) = Authorization::validation($req->getParam('user-name'), $req->getParam('user-password'));
+        if ($isValid) {
+            setcookie('authorizeId', "{$currentUser->getId()}", time() + 3600 * 24, '/');
+            setcookie('authorizePassword', "{$currentUser->getPassword()}", time() + 3600 * 24, '/');
+            Registry::set('userName', $currentUser->getName());
+            Registry::set('userId', $currentUser->getId());
         }
         $view = (new AuthorizationView(Registry::get('domain'), $keyStatus))->buildHTML();
         $this->showOnMonitor($view);

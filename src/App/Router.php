@@ -37,7 +37,7 @@ class Router
         //для API - добавить к контроллеру suffix api
         if (isset($parameters['method']) && $parameters['method'] === 'api') {
             $parameters['controller'] .= $parameters['method'];
-            $parameters['action'] = $_SERVER['REQUEST_METHOD'];
+            $parameters['action'] = $parameters['action'] ?? $_SERVER['REQUEST_METHOD'];
         }
 
         $parameters['controller'] = $parameters['controller'] ?? 'notFound';

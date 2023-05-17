@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Source\Models\DTO;
 
-use Source\App\DtoFactory;
 use Source\Interfaces\Idto;
 
 class NewsDto implements Idto
