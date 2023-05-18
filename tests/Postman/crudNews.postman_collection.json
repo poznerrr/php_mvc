@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "ae7f0b19-dab1-43c5-9bbd-c24d86493d20",
+		"name": "MVC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1/api/authorization/login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"admin\",\r\n    \"userPassword\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/authorization/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"authorization",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1/api/news/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2ODQ0MDI1NzQsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjEiLCJuYmYiOjE2ODQ0MDI1NzQsImV4cCI6MTY4NDQwMzE3NCwidXNlcklkIjoxNX0.TXqp-HjpsZ3dXBHJKiuliQB9bMQIg3DfcqkrNRrqn6s8XAPypnOLmxp0ej-vOTfS4cxLEiowMVXrhj2JjZZEpA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Проверочкаd\",\r\n    \"post\" : \"Теперь работает с jwt\",\r\n    \"categoryId\" : \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/news/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"news",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1/api/news/5560",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2ODQ0MDI1NzQsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjEiLCJuYmYiOjE2ODQ0MDI1NzQsImV4cCI6MTY4NDQwMzE3NCwidXNlcklkIjoxNX0.TXqp-HjpsZ3dXBHJKiuliQB9bMQIg3DfcqkrNRrqn6s8XAPypnOLmxp0ej-vOTfS4cxLEiowMVXrhj2JjZZEpA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1/api/news/5560",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"news",
+						"5560"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1/api/news/20637",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2ODQ0MDcwNTQsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjEiLCJuYmYiOjE2ODQ0MDcwNTQsImV4cCI6MTY4NDQwNzY1NCwidXNlcklkIjoxNX0.lJbMjTMzgT0CyFva7Rm3gbjf0VmxDRFuO7nEZPgv0FPi3iLvURWgo6ztmDo8C_hmE9LM1ic1ZstZHB4JZGZekg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Проверочкаd\",\r\n    \"post\" : \"Теперь работает с yjdsvb\",\r\n    \"categoryId\" : \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1/api/news/20637",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"news",
+						"20637"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1/api/news/5560",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1/api/news/5560",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"api",
+						"news",
+						"5560"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
