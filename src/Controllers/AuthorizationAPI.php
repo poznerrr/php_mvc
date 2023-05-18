@@ -4,27 +4,31 @@ declare(strict_types=1);
 namespace Source\Controllers;
 
 use Source\App\{JwtHandler, Request};
-use Source\Models\DTO\{AuthorizeDto, ErrorDto};
+use Source\Models\DTO\{AuthorizeDto, ErrorDto, LoginDataDto};
 use Source\Models\User;
 
 class AuthorizationAPI extends ControllerAPI
 {
     private ?User $currentUser;
+
     public function __construct()
     {
     }
 
     public function login(Request $req): void
     {
-        $name = $req->getParam('userName');
-        $password = $req->getParam('userPassword');
-        list($isValid, $keyStatus, $this->currentUser) = Authorization::validation($name, $password);
-        if (!$isValid) {
-            $dto = new ErrorDto($keyStatus);
+        $incomeDto = new LoginDataDto($req);
+        if (!$incomeDto->isValid) {
+            $outcomeDto = new ErrorDto('Bad parameters');
         } else {
-            $jwt = JwtHandler::makeJWT($this->currentUser->getId());
-            $dto = new AuthorizeDto($jwt);
+            list($isValid, $keyStatus, $this->currentUser) = Authorization::validation($incomeDto->userName, $incomeDto->userPassword);
+            if (!$isValid) {
+                $outcomeDto = new ErrorDto($keyStatus);
+            } else {
+                $jwt = JwtHandler::makeJWT($this->currentUser->getId());
+                $outcomeDto = new AuthorizeDto($jwt);
+            }
         }
-        $this->returnAnswer($dto);
+        $this->returnAnswer($outcomeDto);
     }
 }

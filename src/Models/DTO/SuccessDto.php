@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Source\Models\DTO;
 
-use Source\Interfaces\Idto;
+use Source\Interfaces\IAnswerDto;
 
-class SuccessDto implements Idto
+class SuccessDto implements IAnswerDto
 {
     public string $status = 'success';
 

@@ -100,7 +100,7 @@ class PostService
     }
 
 
-    public function updatePost(string $title, string $text, string $userId, string $categoryId, string $postId): bool
+    public function updatePost(string $title, string $text, int $userId, int $categoryId, int $postId): bool
     {
         $query = "UPDATE posts SET title = ?, post_text = ?, user_id = ?, category_id = ?, post_date = ? WHERE post_id = ?";
         $stmt = $this->db->prepare($query);

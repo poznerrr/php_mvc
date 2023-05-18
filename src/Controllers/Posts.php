@@ -40,9 +40,14 @@ class Posts extends Controller
         header("Location: /posts");
     }
 
-    public function updatePost(): void
+    public function updatePost(Request $req): void
     {
-        if ($this->postService->updatePost(($_POST['title']), $_POST['text'], $_POST['author'], $_POST['category'], $_POST['id'])) {
+        if ($this->postService->updatePost(
+            $req->getParam('title'),
+            $req->getParam('text'),
+            $req->getIntParam('author'),
+            $req->getIntParam('category'),
+            $req->getIntParam('id'))) {
             header("Location: /posts");
         }
     }

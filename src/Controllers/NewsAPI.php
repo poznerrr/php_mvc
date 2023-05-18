@@ -4,7 +4,15 @@ declare(strict_types=1);
 namespace Source\Controllers;
 
 use Source\App\{JwtHandler, Request};
-use Source\Models\{DTO\ErrorDto, DTO\NewsDto, DTO\SuccessDto, PostService, Post};
+use Source\Models\{DTO\ErrorDto,
+    DTO\GettingByIdDto,
+    DTO\NewsDto,
+    DTO\PostChangerDto,
+    DTO\PostCreatorDto,
+    DTO\SuccessDto,
+    PostService,
+    Post
+};
 
 class NewsAPI extends ControllerAPI
 {
@@ -19,41 +27,91 @@ class NewsAPI extends ControllerAPI
 
     public function get(Request $req): void
     {
-        $postId = $req->getParam('postId');
-            $this->post = $this->postService->getPostById($postId);
-            if ($this->post) {
-                $dto = new NewsDto($this->post->getId(),
-                    $this->post->getTitle(),
-                    $this->post->getText(),
-                    $this->post->getCategory()->getName(),
-                    $this->post->getAuthor()->getName(),
-                    $this->post->getDate()
-                );
+        $incomeDto = new GettingByIdDto($req);
+        if (!$incomeDto->isValid) {
+            $outcomeDto = new ErrorDto('Bad parameters');
+        } else {
+            list($isAuthorized, $authorizedMessage) = JwtHandler::checkJwt($incomeDto->authorizeString);
+            if (!$isAuthorized) {
+                $outcomeDto = new ErrorDto($authorizedMessage);
             } else {
-                $dto = new ErrorDto('Новости с заданным id не существует');
+                $this->post = $this->postService->getPostById($incomeDto->id);
+                if ($this->post) {
+                    $outcomeDto = new NewsDto($this->post->getId(),
+                        $this->post->getTitle(),
+                        $this->post->getText(),
+                        $this->post->getCategory()->getName(),
+                        $this->post->getAuthor()->getName(),
+                        $this->post->getDate()
+                    );
+                } else {
+                    $outcomeDto = new ErrorDto("News with this id don't match");
+                }
             }
+        }
+        $this->returnAnswer($outcomeDto);
+    }
 
-
-        $this->returnAnswer($dto);
+    public function delete(Request $req): void
+    {
+        $incomeDto = new GettingByIdDto($req);
+        if (!$incomeDto->isValid) {
+            $outcomeDto = new ErrorDto('Bad parameters');
+        } else {
+            list($isAuthorized, $authorizedMessage) = JwtHandler::checkJwt($incomeDto->authorizeString);
+            if (!$isAuthorized) {
+                $outcomeDto = new ErrorDto($authorizedMessage);
+            } else {
+                $success = $this->postService->deletePost($incomeDto->id);
+                if ($success) {
+                    $outcomeDto = new SuccessDto("Deleted successful");
+                } else {
+                    $outcomeDto = new ErrorDto("News with this id don't match");
+                }
+            }
+        }
+        $this->returnAnswer($outcomeDto);
     }
 
     public function post(Request $req): void
     {
-        $authorizedString = $req->getParam('HTTP_AUTHORIZATION');
-        list($isAuthorized, $authorizedMessage, $userId) = JwtHandler::checkJwt($authorizedString);
-        if (!$isAuthorized) {
-            $dto = new ErrorDto($authorizedMessage);
+        $incomeDto = new PostCreatorDto($req);
+        if (!$incomeDto->isValid) {
+            $outcomeDto = new ErrorDto('Bad parameters');
         } else {
-            $title = $req->getParam('title');
-            $post = $req->getParam('post');
-            $categoryId = $req->getIntParam('categoryId');
-            $isCreate = $this->postService->createPost($title, $post, $userId, $categoryId);
-            if ($isCreate) {
-                $dto = new SuccessDto('Пост успешно создан');
+            $authorizedString = $incomeDto->authorizeString;
+            list($isAuthorized, $authorizedMessage, $userId) = JwtHandler::checkJwt($authorizedString);
+            if (!$isAuthorized) {
+                $outcomeDto = new ErrorDto($authorizedMessage);
             } else {
-                $dto = new ErrorDto('Нe удалось создать пост');
+                $isCreated = $this->postService->createPost($incomeDto->title, $incomeDto->post, $userId, $incomeDto->categoryId);
+                $outcomeDto = $isCreated ? new SuccessDto('Created successfully') : new ErrorDto('Unsuccessfully');
             }
         }
-        $this->returnAnswer($dto);
+        $this->returnAnswer($outcomeDto);
+    }
+
+    public function put(Request $req): void
+    {
+        $incomeDto = new PostChangerDto($req);
+        if (!$incomeDto->isValid) {
+            $outcomeDto = new ErrorDto('Bad parameters');
+        } else {
+            $authorizedString = $incomeDto->authorizeString;
+            list($isAuthorized, $authorizedMessage, $userId) = JwtHandler::checkJwt($authorizedString);
+            if (!$isAuthorized) {
+                $outcomeDto = new ErrorDto($authorizedMessage);
+            } else {
+                $isChanged = $this->postService->updatePost(
+                    $incomeDto->title,
+                    $incomeDto->post,
+                    $userId,
+                    $incomeDto->categoryId,
+                    $incomeDto->postId
+                );
+                $outcomeDto = $isChanged ? new SuccessDto('Changed successfully') : new ErrorDto('Unsuccessfully');
+            }
+        }
+        $this->returnAnswer($outcomeDto);
     }
 }
