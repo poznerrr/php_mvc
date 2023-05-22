@@ -9,8 +9,7 @@ class AuthorizeDto implements IAnswerDto
 {
     public string $status = 'success';
 
-    public function __construct(
-        public string $jwt)
+    public function __construct(public string $jwt)
     {
     }
 

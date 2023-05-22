@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Source\Controllers;
 
-use Source\App\{JwtHandler, Request};
+use Source\App\{DtoValidator, JwtHandler, Request};
 use Source\Models\DTO\{AuthorizeDto, ErrorDto, LoginDataDto};
 use Source\Models\User;
 
@@ -17,8 +17,12 @@ class AuthorizationAPI extends ControllerAPI
 
     public function login(Request $req): void
     {
+        if (!DtoValidator::checkValidation($req, LoginDataDto::class)) {
+            $this->returnAnswer(new ErrorDto('Incorrect data'));
+            exit();
+        }
         $incomeDto = new LoginDataDto($req);
-        list($isValid, $keyStatus, $this->currentUser) = Authorization::validation($incomeDto->userName, $incomeDto->userPassword);
+        [$isValid, $keyStatus, $this->currentUser] = Authorization::validation($incomeDto->userName, $incomeDto->userPassword);
         if (!$isValid) {
             $outcomeDto = new ErrorDto($keyStatus);
         } else {
