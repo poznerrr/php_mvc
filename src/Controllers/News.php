@@ -23,7 +23,7 @@ class News extends Controller
 
     public function renderDefault(Request $req): void
     {
-        $postId = $req->getParam('postId');
+        $postId = $req->getIntParam('postId');
         try {
             $this->post = $this->postService->getPostById($postId);
             $rightUri = $this->uriMaker->makeTitleUri($this->post);

@@ -52,7 +52,7 @@ class PostService
         return $posts;
     }
 
-    public function deletePost(string $id): bool
+    public function deletePost(int $id): bool
     {
         $query = "DELETE FROM posts WHERE post_id=?";
         $stmt = $this->db->prepare($query);
@@ -104,10 +104,14 @@ class PostService
     {
         $query = "UPDATE posts SET title = ?, post_text = ?, user_id = ?, category_id = ?, post_date = ? WHERE post_id = ?";
         $stmt = $this->db->prepare($query);
-        return $stmt->execute([$title, $text, $userId, $categoryId, time(), $postId]);
+        try {
+            return $stmt->execute([$title, $text, $userId, $categoryId, time(), $postId]);
+        } catch (\Throwable) {
+            return false;
+        }
     }
 
-    public function getPostById(string $id): ?Post
+    public function getPostById(int $id): ?Post
     {
         try {
             $query = "SELECT posts.post_id, posts.title, posts.post_text, posts.post_date,

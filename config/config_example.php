@@ -16,10 +16,13 @@ $pageNewsNumber = 10;
 
 $controllersFolder = "Source\\Controllers\\";
 
-$DtoFolder = "Source\\Models\\DTO";
+$secretKey = 'secret';
+
+$jwtAlg = 'HS512';
 
 return ['db' => $db,
     'domain' => $domain,
     'pageNewsNumber' => $pageNewsNumber,
     'controllersFolder' => $controllersFolder,
-    'DtoFolder' => $DtoFolder];
+    'secretKey' => $secretKey,
+    'jwtAlg' => $jwtAlg];

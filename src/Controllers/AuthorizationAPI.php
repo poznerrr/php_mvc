@@ -18,16 +18,12 @@ class AuthorizationAPI extends ControllerAPI
     public function login(Request $req): void
     {
         $incomeDto = new LoginDataDto($req);
-        if (!$incomeDto->isValid) {
-            $outcomeDto = new ErrorDto('Bad parameters');
+        list($isValid, $keyStatus, $this->currentUser) = Authorization::validation($incomeDto->userName, $incomeDto->userPassword);
+        if (!$isValid) {
+            $outcomeDto = new ErrorDto($keyStatus);
         } else {
-            list($isValid, $keyStatus, $this->currentUser) = Authorization::validation($incomeDto->userName, $incomeDto->userPassword);
-            if (!$isValid) {
-                $outcomeDto = new ErrorDto($keyStatus);
-            } else {
-                $jwt = JwtHandler::makeJWT($this->currentUser->getId());
-                $outcomeDto = new AuthorizeDto($jwt);
-            }
+            $jwt = JwtHandler::makeJWT($this->currentUser->getId());
+            $outcomeDto = new AuthorizeDto($jwt);
         }
         $this->returnAnswer($outcomeDto);
     }

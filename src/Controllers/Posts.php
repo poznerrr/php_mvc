@@ -34,9 +34,10 @@ class Posts extends Controller
         $this->showOnMonitor($view);
     }
 
-    public function deletePost(): void
+    public function deletePost(Request $req): void
     {
-        $this->postService->deletePost(($_POST['id']));
+        $postId = $req->getIntParam('id');
+        $this->postService->deletePost($postId);
         header("Location: /posts");
     }
 
