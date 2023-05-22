@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Source\Models\DTO;
 
-use Source\Interfaces\IAnswerDto;
+use Source\Interfaces\IJsonEncodable;
 
-class NewsDto implements IAnswerDto
+class NewsDto implements IJsonEncodable
 {
     public string $status = 'success';
 

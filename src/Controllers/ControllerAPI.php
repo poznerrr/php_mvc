@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Source\Controllers;
 
-use Source\Interfaces\IAnswerDto;
+use Source\Interfaces\IJsonEncodable;
 
 abstract class ControllerAPI
 {
-    public function returnAnswer(IAnswerDto $dto): void
+    public function returnAnswer(IJsonEncodable $dto): void
     {
         echo $dto->toJson();
     }

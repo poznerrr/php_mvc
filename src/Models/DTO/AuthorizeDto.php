@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Source\Models\DTO;
 
-use Source\Interfaces\IAnswerDto;
+use Source\Interfaces\IJsonEncodable;
 
-class AuthorizeDto implements IAnswerDto
+class AuthorizeDto implements IJsonEncodable
 {
     public string $status = 'success';
 
