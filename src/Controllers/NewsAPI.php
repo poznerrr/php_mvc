@@ -17,16 +17,14 @@ use Source\Models\{DTO\ErrorDto,
 class NewsAPI extends ControllerAPI
 {
     private ?Post $post;
-    private PostService $postService;
 
 
     public function __construct()
     {
-        $this->postService = PostService::getInstance();
     }
 
 
-    public function get(Request $req): void
+    public function get(Request $req, PostService $postService): void
     {
         [$isAuthorized, $authorizedMessage] = JwtHandler::checkJwt();
         if (!$isAuthorized) {
@@ -39,7 +37,7 @@ class NewsAPI extends ControllerAPI
         }
 
         $incomeDto = new GettingByIdDto($req);
-        if ($this->post = $this->postService->getPostById($incomeDto->postId)) {
+        if ($this->post = $postService->getPostById($incomeDto->postId)) {
             $outcomeDto = new NewsDto($this->post->getId(),
                 $this->post->getTitle(),
                 $this->post->getText(),
@@ -54,7 +52,7 @@ class NewsAPI extends ControllerAPI
     }
 
 
-    public function delete(Request $req): void
+    public function delete(Request $req, PostService $postService): void
     {
         [$isAuthorized, $authorizedMessage] = JwtHandler::checkJwt();
         if (!$isAuthorized) {
@@ -67,7 +65,7 @@ class NewsAPI extends ControllerAPI
         }
 
         $incomeDto = new GettingByIdDto($req);
-        if ($this->postService->deletePost($incomeDto->postId)) {
+        if ($postService->deletePost($incomeDto->postId)) {
             $outcomeDto = new SuccessDto("Deleted successful");
         } else {
             $outcomeDto = new ErrorDto("News with this id don't match");
@@ -75,7 +73,7 @@ class NewsAPI extends ControllerAPI
         $this->returnAnswer($outcomeDto);
     }
 
-    public function post(Request $req): void
+    public function post(Request $req, PostService $postService): void
     {
         [$isAuthorized, $authorizedMessage, $userId] = JwtHandler::checkJwt();
         if (!$isAuthorized) {
@@ -88,12 +86,12 @@ class NewsAPI extends ControllerAPI
         }
 
         $incomeDto = new PostCreatorDto($req);
-        $isCreated = $this->postService->createPost($incomeDto->title, $incomeDto->post, $userId, $incomeDto->categoryId);
+        $isCreated = $postService->createPost($incomeDto->title, $incomeDto->post, $userId, $incomeDto->categoryId);
         $outcomeDto = $isCreated ? new SuccessDto('Created successfully') : new ErrorDto('Unsuccessfully');
         $this->returnAnswer($outcomeDto);
     }
 
-    public function put(Request $req): void
+    public function put(Request $req, PostService $postService): void
     {
         [$isAuthorized, $authorizedMessage, $userId] = JwtHandler::checkJwt();
         if (!$isAuthorized) {
@@ -106,11 +104,11 @@ class NewsAPI extends ControllerAPI
         }
 
         $incomeDto = new PostChangerDto($req);
-        $this->post = $this->postService->getPostById($incomeDto->postId);
+        $this->post = $postService->getPostById($incomeDto->postId);
         if ($this->post === null) {
             $this->returnAnswer(new ErrorDto('Post with current id not found'));
         } else {
-            $isChanged = $this->postService->updatePost(
+            $isChanged = $postService->updatePost(
                 $incomeDto->title,
                 $incomeDto->post,
                 $userId,

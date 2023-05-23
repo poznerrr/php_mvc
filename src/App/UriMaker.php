@@ -30,7 +30,7 @@ class UriMaker
 
     public function makeTitleUri(Post $post): string
     {
-        return "/news/" . $this->urlRuEnTranslite($post->getTitle()) . '-r' . $post->getId();
+        return "/news/chosen/" . $this->urlRuEnTranslite($post->getTitle()) . '-r' . $post->getId();
     }
 
 }

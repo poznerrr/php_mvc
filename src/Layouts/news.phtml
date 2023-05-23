@@ -15,14 +15,15 @@
         </div>
         <div class="col-1"></div>
         <div class="col-3 my-2 proposed-news rounded border border-secondary">
-            <?php if(count($this->similarNews) === 0):?>
-            <h2>Здесь могла быть ваша реклама!</h2>
-            <?php else:?>
-            <h3>Похожие новости</h3>
-            <?php foreach ($this->similarNews as $similar):?>
-            <a href="<?=$this->uriMaker->makeTitleUri($similar)?>" class="text-secondary my-2"><?=$similar->getTitle()?></a>
-            <?php endforeach;?>
-            <?php endif;?>
+            <?php if (count($this->similarNews) === 0): ?>
+                <h2>Здесь могла быть ваша реклама!</h2>
+            <?php else: ?>
+                <h3>Похожие новости</h3>
+                <?php foreach ($this->similarNews as $similar): ?>
+                    <a href="<?= $this->uriMaker->makeTitleUri($similar) ?>"
+                       class="text-secondary my-2"><?= $similar->getTitle() ?></a>
+                <?php endforeach; ?>
+            <?php endif; ?>
 
         </div>
     </div>

@@ -12,36 +12,36 @@
                                    href=<?= "{$this->domain}/" ?>>Home</a>
                             </div>
                             <?php if ($this->userName) { ?>
-                            <div>
-                                <a class="nav-link"
-                                   href='<?= "{$this->domain}/post" ?>'>Add
-                                    news</a>
-                            </div>
+                                <div>
+                                    <a class="nav-link"
+                                       href='<?= "{$this->domain}/news/add" ?>'>Add
+                                        news</a>
+                                </div>
                             <?php } ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4 d-flex justify-content-center">
                     <?php if ($this->userName) { ?>
-                    <div class="btn-group me-2">
-                        <div class="dropdown">
-                            <button class="btn btn-sm dropdown-toggle fw-bold" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin Panel
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/posts" ?>">Posts</a>
-                                </li>
-                                <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/categories" ?>">Categories</a>
-                                </li>
-                                <li><a class="dropdown-item"
-                                       href="<?= "{$this->domain}/users" ?>">Users</a>
-                                </li>
-                            </ul>
+                        <div class="btn-group me-2">
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle fw-bold" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Admin Panel
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item"
+                                           href="<?= "{$this->domain}/news" ?>">News</a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                           href="<?= "{$this->domain}/categories" ?>">Categories</a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                           href="<?= "{$this->domain}/users" ?>">Users</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     <?php } ?>
                 </div>
                 <div class="col-sm-4 d-flex justify-content-end">

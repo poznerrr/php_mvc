@@ -8,14 +8,14 @@ use Source\App\{AuthorizationChecker, Registry, Request};
 use Source\Models\UserService;
 use Source\Views\AuthorizationView;
 
-class Authorization extends Controller
+class Authorization extends ControllerHTTP
 {
 
     public function __construct()
     {
     }
 
-    public function renderDefault(Request $req): void
+    public function get(Request $req): void
     {
         $keyStatus = $req->getParam('keyStatus') ?? 'new';
         $view = (new AuthorizationView(Registry::get('domain'), $keyStatus))->buildHTML();
@@ -23,9 +23,8 @@ class Authorization extends Controller
 
     }
 
-    public static function validation($name, $password): array
+    public static function validation(string $name, string $password, UserService $userService): array
     {
-        $userService = UserService::getInstance();
         $desiredUser = $userService->getUserByName($name);
         if (!isset($desiredUser)) {
             $isValid = false;
@@ -44,9 +43,9 @@ class Authorization extends Controller
         return [$isValid, $keyStatus, $desiredUser];
     }
 
-    public function authorize(Request $req): void
+    public function authorize(Request $req, UserService $userService): void
     {
-        list($isValid, $keyStatus, $currentUser) = Authorization::validation($req->getParam('user-name'), $req->getParam('user-password'));
+        list($isValid, $keyStatus, $currentUser) = Authorization::validation($req->getParam('user-name'), $req->getParam('user-password'), $userService);
         if ($isValid) {
             setcookie('authorizeId', "{$currentUser->getId()}", time() + 3600 * 24, '/');
             setcookie('authorizePassword', "{$currentUser->getPassword()}", time() + 3600 * 24, '/');

@@ -7,7 +7,7 @@ return [
     '/^(api)\/(authorization)\/(login)$/' => ['method', 'controller', 'action'],
     '/^(\w+)\/(\w+)\/page-(\d+)\/?.*$/' => ['controller', 'action', 'page'],
     '/^(\w+)\/page-(\d+)$/' => ['controller', 'page'],
-    '/^(news)\/[\w-]+-r(\d+)$/' => ['controller', 'postId'],
+    '/^(news)\/(chosen)\/[\w-]+-r(\d+)$/' => ['controller', 'action', 'postId'],
     '/^(\w+)\/(\w+)\/?.*$/' => ['controller', 'action'],
     '/^(\w+)\/(\w+)$/' => ['controller', 'action'],
     '/^(\w+)$/' => ['controller'],

@@ -3,7 +3,8 @@
         <?php if (!isset($this->searchCombination)) { ?>
             <div class="px-4">Показаны все новости. <?= "(Количество: $this->postCount)" ?></div>
         <?php } else { ?>
-        <div class="d-flex align-items-center" id="cancel-search"><b>Показаны новости по теме "<?= $this->searchCombination ?>"</b>
+        <div class="d-flex align-items-center" id="cancel-search"><b>Показаны новости по теме
+                "<?= $this->searchCombination ?>"</b>
             <?= "(Количество: $this->postCount)" ?>
             <div class="mx-2 cancel-container" title="Отменить"></div>
         </div>

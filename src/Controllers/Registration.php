@@ -8,30 +8,30 @@ use Source\App\{Registry, Request};
 use Source\Models\UserService;
 use Source\Views\RegistrationView;
 
-class Registration extends Controller
+class Registration extends ControllerHTTP
 {
-    public UserService $userService;
 
     public function __construct()
     {
-        $this->userService = UserService::getInstance();
     }
 
-    public function renderDefault(Request $req): void
+    public function get(Request $req): void
     {
         $keyStatus = $req->getParam('keyStatus') ?? 'new';
         $view = (new RegistrationView(Registry::get('domain'), $keyStatus))->buildHTML();
         $this->showOnMonitor($view);
     }
 
-    public function register(): void
+    public function register(Request $req, UserService $userService): void
     {
-        if (isset($_POST["user-name"]) && isset($_POST["user-password"])) {
-            $password = password_hash($_POST['user-password'], PASSWORD_BCRYPT);
-            $this->userService->createUser($_POST['user-name'], $password);
-            $desiredUser = $this->userService->getUserByName($_POST['user-name']);
-            setcookie('id', "{$desiredUser->getId()}", time() + 3600 * 24);
-            setcookie('password', "{$desiredUser->getName()}", time() + 3600 * 24);
+        if (($req->getParam('user-name') !== null) && ($req->getParam('user-password') !== null)) {
+            $password = password_hash($req->getParam('user-password'), PASSWORD_BCRYPT);
+            $userService->createUser($req->getParam('user-name'), $password);
+            $currentUser = $userService->getUserByName($req->getParam('user-name'));
+            setcookie('authorizeId', "{$currentUser->getId()}", time() + 3600 * 24, '/');
+            setcookie('authorizePassword', "{$currentUser->getPassword()}", time() + 3600 * 24, '/');
+            Registry::set('userName', $currentUser->getName());
+            Registry::set('userId', $currentUser->getId());
             $view = (new RegistrationView(Registry::get('domain'), 'success'))->buildHTML();
             $this->showOnMonitor($view);
         }
