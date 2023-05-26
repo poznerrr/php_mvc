@@ -2,21 +2,27 @@
 
 namespace Source\App;
 
+use Source\Interfaces\IInstanceble;
 use Source\Models\CategoryService;
 use Source\Models\PostService;
 use Source\Models\UserService;
 
 class DependencyInjectionContainer
 {
-    private static array $container;
+    private array $container = [
+        'uriMaker' => UriMaker::class,
+        'postService' => PostService::class,
+        'categoryService' => CategoryService::class,
+        'userService' => UserService::class
+    ];
 
-    public static function getContainer(): array
+    public function make(string $className): IInstanceble
     {
-        static::$container['uriMaker'] = UriMaker::getInstance();
-        static::$container['postService'] = PostService::getInstance();
-        static::$container['categoryService'] = CategoryService::getInstance();
-        static::$container['userService'] = UserService::getInstance();
-        return static::$container;
+        try {
+            return $this->container[$className]::getInstance();
+        } catch (\Throwable $e) {
+            echo($e->getMessage());
+        }
     }
 
 }

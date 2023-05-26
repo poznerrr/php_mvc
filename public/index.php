@@ -23,12 +23,10 @@ Registry::set('controllersFolder', $config['controllersFolder']);
 Registry::set('secretKey', $config['secretKey']);
 Registry::set('jwtAlg', $config['jwtAlg']);
 
-$dependencyInjectionContainer = DependencyInjectionContainer::getContainer();
-
 
 AuthorizationChecker::checkAuthorization();
 $request = new Request(Router::parse($routePathes));
-
+$dependencyInjectionContainer = new DependencyInjectionContainer();
 Router::route($request, $dependencyInjectionContainer);
 
 

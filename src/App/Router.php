@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Source\App;
 
 use Source\Controllers\ControllerHTTP;
-use Source\Controllers\{ControllerAPI, Index, NotFound};
+use Source\Controllers\{ControllerAPI, NotFound};
 
 class Router
 {
@@ -46,7 +46,7 @@ class Router
 
     }
 
-    public static function route(Request $req, array $depInjContainer): void
+    public static function route(Request $req, DependencyInjectionContainer $depInjContainer): void
     {
         $controller = self::makeController($req->params['controller']);
         $action = $req->params['action'];
@@ -56,7 +56,7 @@ class Router
             $serviceNames = array_slice($reflection->getParameters(), 1);
             $services = [];
             foreach ($serviceNames as $service) {
-                $services[] = $depInjContainer["{$service->getName()}"];
+                $services[] = $depInjContainer->make($service->getName());
             }
             $controller->$action($req, ...$services);
         } /*иначе выводим 404*/

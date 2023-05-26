@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Source\Models;
 
 use Source\App\Registry;
+use Source\Interfaces\IInstanceble;
 
-class UserService
+class UserService implements IInstanceble
 {
     use TSingletone;
 
