@@ -8,44 +8,41 @@ use Source\App\{Registry, Request};
 use Source\Models\CategoryService;
 use Source\Views\CategoryView;
 
-class Categories extends Controller
+class Categories extends ControllerHTTP
 {
     public array $categories;
 
-    public CategoryService $categoryService;
 
     public function __construct()
     {
-        $this->categoryService = CategoryService::getInstance();
     }
 
-    public function renderDefault(Request $req): void
+    public function get(Request $req, CategoryService $categoryService): void
     {
-        $this->categories = $this->categoryService->getAllCategories();
+        $this->categories = $categoryService->getAllCategories();
         $view = (new CategoryView(Registry::get('domain'), $this->categories))->buildHTML();
         $this->showOnMonitor($view);
     }
 
-    public function delete(): void
+    public function delete(Request $req, CategoryService $categoryService): void
     {
-        if ($this->categoryService->deleteCategoryById((int)$_POST['id'])) {
+        if ($categoryService->deleteCategoryById($req->getIntParam('id'))) {
             header("Location: /categories");
         }
     }
 
-    public function updateCategory(): void
+    public function updateCategory(Request $req, CategoryService $categoryService): void
     {
-        if ($this->categoryService->updateCategoryById((int)$_POST['id'], $_POST['name'])) {
+        if ($categoryService->updateCategoryById($req->getIntParam('id'), $req->getParam('name'))) {
             header("Location: /categories");
         }
     }
 
-    public function createCategory(): void
+    public function createCategory(Request $req, CategoryService $categoryService): void
     {
-        if ($this->categoryService->createCategory($_POST['name'])) {
+        if ($categoryService->createCategory($req->getParam('name'))) {
             header("Location: /categories");
         }
     }
-
 
 }

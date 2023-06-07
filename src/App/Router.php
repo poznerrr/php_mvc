@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Source\App;
 
-use Source\Controllers\Controller;
-use Source\Controllers\{Index, NotFound};
+use Source\Controllers\ControllerHTTP;
+use Source\Controllers\{ControllerAPI, NotFound};
 
 class Router
 {
@@ -34,25 +34,38 @@ class Router
         }
         $parameters = array_combine($parametersKeys, $parametersValues);
 
+        //для API - добавить к контроллеру suffix api
+        if (isset($parameters['method']) && $parameters['method'] === 'api') {
+            $parameters['controller'] .= $parameters['method'];
+            $parameters['action'] = $parameters['action'] ?? $_SERVER['REQUEST_METHOD'];
+        }
+
         $parameters['controller'] = $parameters['controller'] ?? 'notFound';
-        $parameters['action'] = $parameters['action'] ?? 'renderDefault';
+        $parameters['action'] = $parameters['action'] ?? 'get';
         return $parameters;
 
     }
 
-    public static function route(Request $req): void
+    public static function route(Request $req, DependencyInjectionContainer $depInjContainer): void
     {
         $controller = self::makeController($req->params['controller']);
         $action = $req->params['action'];
         if (method_exists($controller, $action)) {
-            $controller->$action($req);
+            $reflection = new \ReflectionMethod($controller, $action);
+            //Первым всегда будет request, сервисы идут с позиции 1
+            $serviceNames = array_slice($reflection->getParameters(), 1);
+            $services = [];
+            foreach ($serviceNames as $service) {
+                $services[] = $depInjContainer->make($service->getName());
+            }
+            $controller->$action($req, ...$services);
         } /*иначе выводим 404*/
         else {
-            self::makeController('notFound')->renderDefault($req);
+            self::makeController('notFound')->get($req);
         }
     }
 
-    private static function makeController(string $controllerName): Controller
+    private static function makeController(string $controllerName): ControllerHTTP|ControllerAPI
     {
         $controllersFolder = Registry::get('controllersFolder');
         $controller = $controllersFolder . $controllerName;

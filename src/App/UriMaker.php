@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace Source\App;
 
 use Source\Models\{Post, TSingletone};
+use Source\Interfaces\IInstanceble;
 
-class UriMaker
+class UriMaker implements IInstanceble
 {
     use TSingletone;
 
@@ -21,16 +22,15 @@ class UriMaker
 
     public function urlRuEnTranslite(string $ruString): string
     {
-        $enString = str_replace([' ', ',', '.', '–', '«', '»', ':', '?', '!', '+', chr(38), "quot;", '/', '\\'], '-', $ruString);
+        $enString = mb_ereg_replace('[\W]+', '-', $ruString);
         $enString = mb_ereg_replace('[-]+', '-', $enString);
         $enString = trim($enString, '-');
-        $enString = strtr(mb_strtolower($enString), $this->ruEnConverter);
-        return $enString;
+        return strtr(mb_strtolower($enString), $this->ruEnConverter);
     }
 
     public function makeTitleUri(Post $post): string
     {
-        return "/news/" . $this->urlRuEnTranslite($post->getTitle()) . '-r' . $post->getId();
+        return "/news/chosen/" . $this->urlRuEnTranslite($post->getTitle()) . '-r' . $post->getId();
     }
 
 }
